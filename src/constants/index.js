@@ -27,6 +27,8 @@ import {
   dcc,
   kelhel,
   microverse,
+  ssuPaw,
+  gradCap,
 } from '../assets';
 
 export const navLinks = [
@@ -46,17 +48,17 @@ export const navLinks = [
 
 const services = [
   {
-    title: 'Frontend Developer',
-    icon: frontend,
-  },
-  {
     title: 'Backend Developer',
     icon: backend,
   },
   {
-    title: 'UI/UX Design',
-    icon: ux,
+    title: 'Frontend Developer',
+    icon: frontend,
   },
+  // {
+  //   title: 'UI/UX Design',
+  //   icon: ux,
+  // },
   {
     title: 'Software Prototyping',
     icon: prototyping,
@@ -124,32 +126,25 @@ const technologies = [
 
 const experiences = [
   {
-    title: 'Front-End Developer',
-    company_name: 'Cover Hunt',
-    icon: coverhunt,
+    title: 'Bachelor of Science in Computer Science',
+    company_name: 'Sonoma State University',
+    icon: gradCap,
+    iconBg: '#333333',
+    date: 'Graduated May 2024'
+  },
+  {
+    title: 'XR Student Developer',
+    company_name: 'Sonoma State University',
+    icon: ssuPaw,
     iconBg: '#333333',
     date: 'Aug 2021 - Feb 2022',
   },
   {
-    title: 'Mentor (Volunteer)',
-    company_name: 'Microverse',
-    icon: microverse,
+    title: 'Student Researcher',
+    company_name: 'Sonoma State University',
+    icon: ssuPaw,
     iconBg: '#333333',
-    date: 'Mar 2022 - May 2022',
-  },
-  {
-    title: 'Junior Software Engineer',
-    company_name: 'Kelhel',
-    icon: kelhel,
-    iconBg: '#333333',
-    date: 'May 2022 - Oct 2022',
-  },
-  {
-    title: 'Full Stack Developer',
-    company_name: 'Diversity Cyber Council',
-    icon: dcc,
-    iconBg: '#333333',
-    date: 'Sep 2022 - Present',
+    date: 'Sept 2023 - May 2024',
   },
 ];
 

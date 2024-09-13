@@ -3,10 +3,9 @@ import nairobi from './backgrounds/nairobi.png';
 import whiteabstract from './backgrounds/white-abstract.png';
 import worldmap from './backgrounds/world-map.png';
 
-import logo from './logo/logo-black.png';
-import logotext from './logo/logo-text-black.png';
+import logo from './logo/personal-logo-black.png';
 
-import shaq from './personal/shaq.png';
+import headshot from './personal/Headshot-Placeholder.png';
 
 import backend from './icons/backend.png';
 import ux from './icons/ux.png';
@@ -42,6 +41,8 @@ import coverhunt from './company/coverhunt.png';
 import dcc from './company/dcc.png';
 import kelhel from './company/kelhel.png';
 import microverse from './company/microverse.png';
+import ssuPaw from './company/ssuPaw.png';
+import gradCap from './icons/gradCap.png';
 
 import komikult from './projects/komikult.png';
 import leaderboard from './projects/leaderboard.png';
@@ -56,8 +57,7 @@ export {
   whiteabstract,
   worldmap,
   logo,
-  logotext,
-  shaq,
+  headshot,
   backend,
   ux,
   frontend,
@@ -96,4 +96,6 @@ export {
   dcc,
   kelhel,
   microverse,
+  ssuPaw,
+  gradCap,
 };
