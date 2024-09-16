@@ -46,8 +46,9 @@ const Hero = () => {
               </span>
             </h1>
             <p className={`${styles.heroSubText} mt-2 text-eerieBlack`}>
-              Lorem ipsum dolor sit amet. <br className="sm:block hidden" />
-              consectetur adipisicing elit deleniti, voluptas.
+            I'm a recent Computer Science graduate from Sonoma State University with a passion for developing innovative software solutions. My academic journey has equipped me with a strong foundation in various programming languages and technologies, including Swift, Python, and JavaScript. I've had the opportunity to apply my skills in real-world projects, from creating immersive VR educational applications to developing a web-based crisis management platform. <br className="sm:block hidden" />
+            My experience as a Student Researcher and XR Student Developer has honed my ability to tackle complex problems and collaborate effectively in team environments. I'm excited to bring my technical skills, creativity, and enthusiasm for learning to a dynamic professional setting where I can contribute to cutting-edge software development projects.
+            Feel free to explore my portfolio to see examples of my work and the diverse range of projects I've been involved in. I'm always eager to take on new challenges and expand my skill set in the ever-evolving world of technology.
             </p>
           </div>
           <div

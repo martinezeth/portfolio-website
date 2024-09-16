@@ -1,5 +1,5 @@
 import bwmap from './backgrounds/bw-map.jpeg';
-import nairobi from './backgrounds/nairobi.png';
+import sanFrancisco from './backgrounds/san-francisco-skyline.jpg';
 import whiteabstract from './backgrounds/white-abstract.png';
 import worldmap from './backgrounds/world-map.png';
 
@@ -57,7 +57,6 @@ import wagerWiseHome from './projects/wagerwise-home-screenshot.png';
 
 export {
   bwmap,
-  nairobi,
   whiteabstract,
   worldmap,
   logo,
@@ -103,4 +102,5 @@ export {
   dcc,
   ssuPaw,
   gradCap,
+  sanFrancisco,
 };
