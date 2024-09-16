@@ -18,15 +18,14 @@ import {
   rubyrails,
   graphql,
   komikult,
+  manualClassifier,
+  wagerWiseHome,
   leaderboard,
   math,
   movie,
   nyeusi,
   space,
-  coverhunt,
   dcc,
-  kelhel,
-  microverse,
   ssuPaw,
   gradCap,
 } from '../assets';
@@ -148,11 +147,12 @@ const experiences = [
   },
 ];
 
+//  TODO:  Modify formatting of 'projects' props to contain tech stack
 const projects = [
   {
     id: 'project-1',
-    name: 'KomiKult',
-    description: 'A comic characters list app that displays Marvel characters.',
+    name: 'Manual Image Classifier',
+    description: 'A tool for manually classifying images to create training datasets for machine learning models. It provides an intuitive interface for users to efficiently sort and label large volumes of images, streamlining the data preparation process for ML projects.',
     tags: [
       {
         name: 'react',
@@ -167,15 +167,15 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: komikult,
-    repo: 'https://github.com/shaqdeff/KomiKult',
-    demo: 'https://shaqdeff.github.io/KomiKult/',
+    image: manualClassifier,
+    repo: 'https://github.com/martinezeth/manual-image-classifier',
+    //demo: '',
   },
   {
     id: 'project-2',
-    name: 'Leaderboard',
+    name: 'WagerWise [In Progress]',
     description:
-      'A leaderboard list app that displays scores submitted by different players.',
+      'WagerWise is an iOS application designed to help users track their gambling activities and promote responsible gaming habits. It provides real-time session tracking, customizable limits, and insightful statistics to encourage mindful betting practices.',
     tags: [
       {
         name: 'react',
@@ -190,14 +190,14 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: leaderboard,
-    repo: 'https://github.com/shaqdeff/Leaderboard',
-    demo: 'https://shaqdeff.github.io/Leaderboard/',
+    image: wagerWiseHome,
+   // repo: '',
+  // demo: '',
   },
   {
     id: 'project-3',
-    name: 'Math Magicians',
-    description: 'This is a single-page calculator app built with React',
+    name: 'Crisis Companion',
+    description: 'Crisis Companion is a web-based platform designed to provide crucial information and resources during emergency situations. It features real-time updates, interactive maps, and a user-friendly interface to help communities navigate crises effectively.',
     tags: [
       {
         name: 'nextjs',
@@ -215,51 +215,6 @@ const projects = [
     image: math,
     repo: 'https://github.com/shaqdeff/Math-Magicians',
     demo: 'https://inspiring-medovik-37d3b3.netlify.app/',
-  },
-  {
-    id: 'project-4',
-    name: 'Movie Metro',
-    description: `A single-page application that allows users to search for any movie or show's ratings and its details.`,
-    tags: [
-      {
-        name: 'nextjs',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'supabase',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'css',
-        color: 'pink-text-gradient',
-      },
-    ],
-    image: movie,
-    repo: 'https://github.com/shaqdeff/Movie-Metro',
-    demo: 'https://movie-metro.netlify.app/',
-  },
-  {
-    id: 'project-5',
-    name: 'Nyeusi Fest Site',
-    description:
-      'This is a demo concert website for a music festival called Nyeusi.',
-    tags: [
-      {
-        name: 'nextjs',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'supabase',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'css',
-        color: 'pink-text-gradient',
-      },
-    ],
-    image: nyeusi,
-    repo: 'https://github.com/shaqdeff/Nyeusi-Fest-Site',
-    demo: 'https://shaqdeff.github.io/Nyeusi-Fest-Site/',
   },
 ];
 
