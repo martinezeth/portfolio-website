@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '../hoc';
 import { styles } from '../styles';
-import { github, pineapple, pineappleHover } from '../assets';
+import { github, playButtonArrowhead, playButtonArrowheadHover } from '../assets';
 import { projects } from '../constants';
 import { fadeIn, textVariant, staggerContainer } from '../utils/motion';
 
@@ -88,16 +88,16 @@ const ProjectCard = ({
               onMouseOver={() => {
                 document
                   .querySelector('.btn-icon')
-                  .setAttribute('src', pineappleHover);
+                  .setAttribute('src', playButtonArrowheadHover);
               }}
               onMouseOut={() => {
                 document
                   .querySelector('.btn-icon')
-                  .setAttribute('src', pineapple);
+                  .setAttribute('src', playButtonArrowhead);
               }}>
               <img
-                src={pineapple}
-                alt="pineapple"
+                src={playButtonArrowhead}
+                alt="playButtonArrowhead"
                 className="btn-icon sm:w-[34px] sm:h-[34px] 
                   w-[30px] h-[30px] object-contain"
               />
@@ -124,11 +124,7 @@ const Projects = () => {
         <motion.p
           variants={fadeIn('', '', 0.1, 1)}
           className="mt-4 text-taupe text-[18px] max-w-3xl leading-[30px]">
-          These projects demonstrate my expertise with practical examples of
-          some of my work, including brief descriptions and links to code
-          repositories and live demos. They showcase my ability to tackle
-          intricate challenges, adapt to various technologies, and efficiently
-          oversee projects.
+In this section, you’ll find a collection of projects that highlight my hands-on experience and problem-solving abilities. From developing a manual image classification tool for computer vision models to building a real-time iOS app for tracking gambling activities, these projects reflect my versatility in handling diverse technologies. Each project is linked to its code repository and live demos, showcasing my proficiency in tackling complex problems, adapting to new tools, and delivering user-focused solutions.
         </motion.p>
       </div>
 

@@ -15,6 +15,9 @@ const Attributions = () => {
             <li>
               <a href="https://www.flaticon.com/free-icons/education" title="education icons" className="text-french hover:text-battleGray">Education icons created by Freepik - Flaticon</a>
             </li>
+            <li>
+            <a href="https://www.flaticon.com/free-icons/play" title="play icons" className="text-french hover:text-battleGray">Play icons created by Freepik - Flaticon</a>
+            </li>
           </ul>
           {/* Add more attributions here as needed */}
         </div>

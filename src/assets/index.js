@@ -22,6 +22,9 @@ import resume from './icons/resume.png';
 import send from './icons/send.png';
 import sendHover from './icons/sendHover.png';
 
+import playButtonArrowheadHover from './icons/play-button-arrowhead-hover.png';
+import playButtonArrowhead from './icons/play-button-arrowhead.png';
+
 import css from './tech/css.png';
 import docker from './tech/docker.png';
 import figma from './tech/figma.png';
@@ -69,6 +72,8 @@ export {
   downloadHover,
   pineapple,
   pineappleHover,
+  playButtonArrowhead,
+  playButtonArrowheadHover,
   menu,
   resume,
   send,
