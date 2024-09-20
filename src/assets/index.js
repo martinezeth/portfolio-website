@@ -14,6 +14,8 @@ import ux from './icons/ux.png';
 import frontend from './icons/frontend.png';
 import prototyping from './icons/prototyping.png';
 import github from './icons/github.png';
+import githubDark from './icons/Github_Invertocat_Dark.png';
+import linkedinDark from './icons/icons8-linkedin-100.png';
 import close from './icons/close.png';
 import download from './icons/download.png';
 import downloadHover from './icons/downloadHover.png';
@@ -65,6 +67,8 @@ export {
   frontend,
   prototyping,
   github,
+  githubDark,
+  linkedinDark,
   close,
   download,
   downloadHover,
