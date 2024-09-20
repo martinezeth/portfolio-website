@@ -2,11 +2,29 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
-import { close, menu, logo } from '../assets';
+import { close, menu, logo, githubDark, linkedinDark } from '../assets';
+
+const SocialIcon = ({ href, src, alt, isActive, setActive }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`transition-colors duration-300 ${isActive ? 'opacity-80' : 'opacity-100'}`}
+    onMouseEnter={() => setActive(alt)}
+    onMouseLeave={() => setActive(null)}
+  >
+    <img
+      src={src}
+      alt={alt}
+      className="w-[30px] h-[30px] object-contain cursor-pointer"
+    />
+  </a>
+);
 
 const Navbar = () => {
   const [active, setActive] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [activeSocial, setActiveSocial] = useState(null);
 
   return (
     <nav
@@ -25,32 +43,47 @@ const Navbar = () => {
             alt="logo"
             className="sm:w-[50px] sm:h-[50px] w-[45px] h-[45px] object-contain"
           />
-
           <span className="text-eerieBlack font-opensans text-[24px] font-[500] tracking-wider">
             Ethan Martinez
           </span>
         </Link>
-        <ul className="list-none hidden sm:flex flex-row gap-14 mt-2">
-          {navLinks.map((nav) => (
-            <li
-              key={nav.id}
-              className={`${
-                active === nav.title ? 'text-french' : 'text-eerieBlack'
-              } hover:text-taupe text-[21px] font-medium font-mova 
-                uppercase tracking-[3px] cursor-pointer nav-links`}
-              onClick={() => setActive(nav.title)}>
-              <a href={`#${nav.id}`}>{nav.title}</a>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center">
+          <ul className="list-none hidden sm:flex flex-row gap-14 mt-2">
+            {navLinks.map((nav) => (
+              <li
+                key={nav.id}
+                className={`${active === nav.title ? 'text-french' : 'text-eerieBlack'
+                  } hover:text-taupe text-[21px] font-medium font-mova 
+                  uppercase tracking-[3px] cursor-pointer nav-links`}
+                onClick={() => setActive(nav.title)}>
+                <a href={`#${nav.id}`}>{nav.title}</a>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden sm:flex items-center ml-10 gap-5">
+            <SocialIcon
+              href="https://github.com/martinezeth"
+              src={githubDark}
+              alt="GitHub"
+              isActive={activeSocial === 'GitHub'}
+              setActive={setActiveSocial}
+            />
+            <SocialIcon
+              href="https://www.linkedin.com/in/martinezethan"
+              src={linkedinDark}
+              alt="LinkedIn"
+              isActive={activeSocial === 'LinkedIn'}
+              setActive={setActiveSocial}
+            />
+          </div>
+        </div>
 
         {/* mobile */}
         <div className="sm:hidden flex flex-1 w-screen justify-end items-center">
           {toggle ? (
             <div
               className={`p-6 bg-flashWhite opacity-[0.98] absolute 
-                top-0 left-0 w-screen h-[100vh] z-10 menu ${
-                  toggle ? 'menu-open' : 'menu-close'
+                top-0 left-0 w-screen h-[100vh] z-10 menu ${toggle ? 'menu-open' : 'menu-close'
                 }`}>
               <div className="flex justify-end">
                 <img
@@ -67,9 +100,8 @@ const Navbar = () => {
                   <li
                     id={nav.id}
                     key={nav.id}
-                    className={`${
-                      active === nav.title ? 'text-french' : 'text-eerieBlack'
-                    } text-[88px] font-bold font-arenq 
+                    className={`${active === nav.title ? 'text-french' : 'text-eerieBlack'
+                      } text-[88px] font-bold font-arenq 
                       uppercase tracking-[1px] cursor-pointer`}
                     onClick={() => {
                       setToggle(!toggle);
@@ -79,6 +111,22 @@ const Navbar = () => {
                   </li>
                 ))}
               </ul>
+              <div className="flex mt-10 gap-5">
+                <SocialIcon
+                  href="https://github.com/martinezeth"
+                  src={githubDark}
+                  alt="GitHub"
+                  isActive={activeSocial === 'GitHub'}
+                  setActive={setActiveSocial}
+                />
+                <SocialIcon
+                  href="https://www.linkedin.com/in/martinezethan"
+                  src={linkedinDark}
+                  alt="LinkedIn"
+                  isActive={activeSocial === 'LinkedIn'}
+                  setActive={setActiveSocial}
+                />
+              </div>
             </div>
           ) : (
             <img
