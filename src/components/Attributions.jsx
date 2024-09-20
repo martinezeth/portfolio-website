@@ -21,6 +21,21 @@ const Attributions = () => {
             <li>
               <a href="https://brand.github.com/foundations/logo" title="github icons" className="text-french hover:text-battleFray">Github icons created by Github</a>
             </li>
+            <li>
+              <a target="_blank" href="https://icons8.com/icon/3767/sql">SQL</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </li>
+            <li>
+              <a target="_blank" href="https://icons8.com/icon/55199/c%2B%2B">C++</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </li>
+            <li>
+              <a target="_blank" href="https://icons8.com/icon/24464/swift">Swift</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </li>
+            <li>
+              <a target="_blank" href="https://icons8.com/icon/t9oCxEN7McHZ/nodejs">Nodejs</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </li>
+            <li>
+              <a target="_blank" href="https://icons8.com/icon/12592/python">Python</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+            </li>
           </ul>
 
           <h2 className="text-2xl font-semibold text-eerieBlack mb-4 mt-6">Images</h2>

@@ -15,7 +15,7 @@ const Hero = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      
+
       <div className={`absolute inset-0 ${styles.paddingX} 
         max-w-7xl mx-auto flex flex-row items-start justify-between gap-3`}>
         <div className="flex flex-col justify-center items-center mt-5 ml-3">
@@ -31,10 +31,10 @@ const Hero = () => {
             </span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-timberWolf`}>
-            A Computer Science graduate passionate about 
-            developing innovative software solutions. 
-            From VR applications to web platforms, 
-            I bring creativity and technical skills 
+            A Computer Science graduate passionate about
+            developing innovative software solutions.
+            From VR applications to web platforms,
+            I bring creativity and technical skills
             to every project.
           </p>
         </div>
