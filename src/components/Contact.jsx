@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import { styles } from '../styles';
 import { SectionWrapper } from '../hoc';
 import { slideIn } from '../utils/motion';
@@ -14,10 +13,10 @@ const Contact = () => {
     message: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setForm({ ...form, [name]: value });
   };
 
@@ -25,39 +24,35 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    // sign up on emailjs.com (select the gmail service and connect your account).
-    //click on create a new template then click on save.
-    emailjs
-      .send(
-        'serviceID', // paste your ServiceID here (you'll get one when your service is created).
-        'templateID', // paste your TemplateID here (you'll find it under email templates).
-        {
-          from_name: form.name,
-          to_name: 'YourName', // put your name here.
-          from_email: form.email,
-          to_email: 'youremail@gmail.com', //put your email here.
-          message: form.message,
-        },
-        'yourpublickey' //paste your Public Key here. You'll get it in your profile section.
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert('Thank you. I will get back to you as soon as possible.');
+    // Grabbing endpoint from environment variables
+    const getFormEndpoint = import.meta.env.VITE_GETFORM_ENDPOINT;
 
-          setForm({
-            name: '',
-            email: '',
-            message: '',
-          });
-        },
-        (error) => {
-          setLoading(false);
-          console.log(error);
-          alert('Something went wrong. Please try again.');
-        }
-      );
+    fetch(getFormEndpoint, {
+      method: 'POST',
+      body: new FormData(formRef.current),
+    })
+      .then(() => {
+        setLoading(false);
+        setShowOverlay(true); // Show overlay on success
+
+        setForm({
+          name: '',
+          email: '',
+          message: '',
+        });
+
+        // Remove the overlay after 4 seconds
+        setTimeout(() => {
+          setShowOverlay(false);
+        }, 4000);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+        alert('Something went wrong. Please try again.');
+      });
   };
+
 
   return (
     <div
@@ -72,7 +67,10 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="mt-10 flex flex-col gap-6 font-poppins">
+          className="mt-10 flex flex-col gap-6 font-poppins"
+          action={import.meta.env.VITE_GETFORM_ENDPOINT}
+          method="POST"
+        >
           <label className="flex flex-col">
             <span className="text-timberWolf font-medium mb-4">Your Name</span>
             <input
@@ -85,6 +83,7 @@ const Contact = () => {
               placeholder:text-taupe
               text-timberWolf rounded-lg outline-none
               border-none font-medium"
+              required
             />
           </label>
           <label className="flex flex-col">
@@ -99,6 +98,7 @@ const Contact = () => {
               placeholder:text-taupe
               text-timberWolf rounded-lg outline-none
               border-none font-medium"
+              required
             />
           </label>
           <label className="flex flex-col">
@@ -115,6 +115,7 @@ const Contact = () => {
               placeholder:text-taupe
               text-timberWolf rounded-lg outline-none
               border-none font-medium resize-none"
+              required
             />
           </label>
 
@@ -145,6 +146,15 @@ const Contact = () => {
           </button>
         </form>
       </motion.div>
+
+      {showOverlay && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white text-eerieBlack py-4 px-8 rounded-lg shadow-lg">
+            <p className="text-lg font-bold">Thank you!</p>
+            <p>I will get back to you as soon as possible.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

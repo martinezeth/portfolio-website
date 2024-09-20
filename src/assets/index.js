@@ -44,8 +44,6 @@ import dcc from './company/dcc.png';
 import ssuPaw from './company/ssuPaw.png';
 import gradCap from './icons/gradCap.png';
 
-import nyeusi from './projects/nyeusi.png';
-import space from './projects/space-hub.png';
 
 import manualClassifier from './projects/manual-classifier.png';
 import wagerWiseHome from './projects/wagerwise-home-screenshot.png';
@@ -80,8 +78,6 @@ export {
   nodejs,
   reactjs,
   typescript,
-  nyeusi,
-  space,
   cplusplus,
   sql,
   swift,
