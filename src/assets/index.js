@@ -2,6 +2,8 @@ import bwmap from './backgrounds/bw-map.jpeg';
 import sanFrancisco from './backgrounds/san-francisco-skyline.jpg';
 import whiteabstract from './backgrounds/white-abstract.png';
 import worldmap from './backgrounds/world-map.png';
+import abstractspiderweb from './backgrounds/abstract-spiderweb.jpg';
+
 
 import logo from './logo/personal-logo-black.png';
 
@@ -44,10 +46,6 @@ import dcc from './company/dcc.png';
 import ssuPaw from './company/ssuPaw.png';
 import gradCap from './icons/gradCap.png';
 
-import komikult from './projects/komikult.png';
-import leaderboard from './projects/leaderboard.png';
-import math from './projects/math-magicians.png';
-import movie from './projects/movie-metro.png';
 import nyeusi from './projects/nyeusi.png';
 import space from './projects/space-hub.png';
 
@@ -59,6 +57,7 @@ export {
   bwmap,
   whiteabstract,
   worldmap,
+  abstractspiderweb,
   logo,
   headshot,
   backend,
@@ -91,10 +90,6 @@ export {
   redux,
   tailwind,
   typescript,
-  komikult,
-  leaderboard,
-  math,
-  movie,
   nyeusi,
   space,
   manualClassifier,
