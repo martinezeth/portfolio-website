@@ -1,27 +1,19 @@
 import {
   frontend,
   backend,
-  ux,
   prototyping,
   javascript,
   typescript,
-  html,
-  css,
   reactjs,
-  redux,
-  tailwind,
   nodejs,
   git,
-  figma,
-  docker,
-  postgresql,
-  rubyrails,
-  graphql,
+  sql,
+  cplusplus,
+  unrealEngine,
+  swift,
+  python,
   manualClassifier,
   wagerWiseHome,
-  nyeusi,
-  space,
-  dcc,
   ssuPaw,
   gradCap,
 } from '../assets';
@@ -50,10 +42,6 @@ const services = [
     title: 'Frontend Developer',
     icon: frontend,
   },
-  // {
-  //   title: 'UI/UX Design',
-  //   icon: ux,
-  // },
   {
     title: 'Software Prototyping',
     icon: prototyping,
@@ -62,12 +50,16 @@ const services = [
 
 const technologies = [
   {
-    name: 'HTML 5',
-    icon: html,
+    name: 'C++',
+    icon: cplusplus,
   },
   {
-    name: 'CSS 3',
-    icon: css,
+    name: 'Python',
+    icon: python,
+  },
+  {
+    name: 'Unreal Engine',
+    icon: unrealEngine,
   },
   {
     name: 'JavaScript',
@@ -82,40 +74,20 @@ const technologies = [
     icon: reactjs,
   },
   {
-    name: 'Redux Toolkit',
-    icon: redux,
-  },
-  {
-    name: 'Tailwind CSS',
-    icon: tailwind,
+    name: 'Swift',
+    icon: swift,
   },
   {
     name: 'Node JS',
     icon: nodejs,
   },
   {
-    name: 'Rails',
-    icon: rubyrails,
-  },
-  {
-    name: 'graphql',
-    icon: graphql,
-  },
-  {
-    name: 'postgresql',
-    icon: postgresql,
+    name: 'SQL',
+    icon: sql,
   },
   {
     name: 'git',
     icon: git,
-  },
-  {
-    name: 'figma',
-    icon: figma,
-  },
-  {
-    name: 'docker',
-    icon: docker,
   },
 ];
 
@@ -187,8 +159,8 @@ const projects = [
       },
     ],
     image: wagerWiseHome,
-   // repo: '',
-  // demo: '',
+    // repo: '',
+    // demo: '',
   },
   {
     id: 'project-3',

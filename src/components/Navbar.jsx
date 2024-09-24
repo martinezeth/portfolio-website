@@ -69,7 +69,7 @@ const Navbar = () => {
               setActive={setActiveSocial}
             />
             <SocialIcon
-              href="https://www.linkedin.com/in/martinezethan"
+              href="https://www.linkedin.com/in/martinezethan/"
               src={linkedinDark}
               alt="LinkedIn"
               isActive={activeSocial === 'LinkedIn'}
@@ -120,7 +120,7 @@ const Navbar = () => {
                   setActive={setActiveSocial}
                 />
                 <SocialIcon
-                  href="https://www.linkedin.com/in/martinezethan"
+                  href="https://www.linkedin.com/in/martinezethan/"
                   src={linkedinDark}
                   alt="LinkedIn"
                   isActive={activeSocial === 'LinkedIn'}
