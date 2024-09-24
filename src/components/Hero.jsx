@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
-import { headshot, abstractspiderweb } from '../assets';
+import { abstractspiderweb } from '../assets';
 
 const Hero = () => {
   return (
@@ -62,7 +62,7 @@ const Hero = () => {
       </div>
 
       {/* Your image comes here. Feel free to remove image if you don't plan to have one.*/}
-      <div>
+      {/* <div>
         <img
           className="absolute bottom-0 right-0 
           lg:w-[30%] md:w-[40%] sm:w-[50%] w-[60%]
@@ -70,7 +70,7 @@ const Hero = () => {
           src={headshot}
           alt="Ethan"
         />
-      </div>
+      </div> */}
     </section>
   );
 };

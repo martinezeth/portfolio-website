@@ -4,10 +4,7 @@ import whiteabstract from './backgrounds/white-abstract.png';
 import worldmap from './backgrounds/world-map.png';
 import abstractspiderweb from './backgrounds/abstract-spiderweb.jpg';
 
-
 import logo from './logo/personal-logo-black.png';
-
-import headshot from './personal/Headshot-Placeholder.png';
 
 import backend from './icons/backend.png';
 import ux from './icons/ux.png';
@@ -55,7 +52,6 @@ export {
   worldmap,
   abstractspiderweb,
   logo,
-  headshot,
   backend,
   ux,
   frontend,
