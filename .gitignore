@@ -1,3 +1,2 @@
 node_modules
 .env
-sed -i '' '/^dist/d' .gitignore  # This removes any line that starts with 'dist'
