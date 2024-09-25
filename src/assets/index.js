@@ -37,7 +37,6 @@ import swift from './tech/swift.png';
 import python from './tech/python.png';
 
 
-import dcc from './company/dcc.png';
 import ssuPaw from './company/ssuPaw.png';
 import gradCap from './icons/gradCap.png';
 

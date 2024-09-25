@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
 import { close, menu, logo, githubDark, linkedinDark } from '../assets';
@@ -31,8 +30,8 @@ const Navbar = () => {
       className={`${styles.paddingX} w-full flex items-center py-2 fixed 
       top-0 z-20 bg-flashWhite sm:opacity-[0.97] xxs:h-[12vh]`}>
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-        <Link
-          to="/"
+        <a
+          href="#"
           className="flex items-center gap-2"
           onClick={() => {
             setActive('');
@@ -46,7 +45,7 @@ const Navbar = () => {
           <span className="text-eerieBlack font-opensans text-[24px] font-[500] tracking-wider">
             Ethan Martinez
           </span>
-        </Link>
+        </a>
         <div className="flex items-center">
           <ul className="list-none hidden sm:flex flex-row gap-14 mt-2">
             {navLinks.map((nav) => (

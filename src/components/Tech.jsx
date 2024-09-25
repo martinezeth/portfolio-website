@@ -7,7 +7,7 @@ import { textVariant } from '../utils/motion';
 
 const Tech = () => {
   return (
-    <>
+    <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
       <motion.div variants={textVariant()}>
         <p className={styles.sectionSubTextLight}>My skills</p>
         <h2 className={styles.sectionHeadTextLight}>Technologies.</h2>
@@ -20,7 +20,7 @@ const Tech = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -55,19 +55,18 @@ const Contact = () => {
 
 
   return (
-    <div
-      className="-mt-[8rem] xl:flex-row flex-col-reverse 
-      flex gap-10 overflow-hidden">
+    <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
       <motion.div
         variants={slideIn('left', 'tween', 0.2, 1)}
         className="flex-[0.75] bg-jet p-8 rounded-2xl">
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadTextLight}>Contact.</h3>
 
+
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="mt-10 flex flex-col gap-6 font-poppins"
+          className="mt-12 flex flex-col gap-8 font-poppins"
           action={import.meta.env.VITE_GETFORM_ENDPOINT}
           method="POST"
         >

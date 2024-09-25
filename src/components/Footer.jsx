@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className="bg-jetLight text-timberWolf py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div>
-          © {new Date().getFullYear()} Ethan Martinez. All rights reserved.
+          © {new Date().getFullYear()} Ethan Martinez
         </div>
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
           <a href="https://github.com/martinezeth" target="_blank" rel="noopener noreferrer">
             <img src={githubDark} alt="GitHub" className="w-6 h-6 transition-colors duration-300 hover:opacity-80" />
           </a>
@@ -17,7 +17,7 @@ const Footer = () => {
             <img src={linkedinDark} alt="LinkedIn" className="w-6 h-6 transition-colors duration-300 hover:opacity-80" />
           </a>
           <Link to="/attributions" className="text-french hover:text-battleGray transition duration-300">
-            Icon Attributions
+            Attributions
           </Link>
         </div>
       </div>
