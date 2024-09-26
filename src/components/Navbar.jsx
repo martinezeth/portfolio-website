@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
 import { close, menu, logo, githubDark, linkedinDark } from '../assets';
@@ -25,13 +26,22 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [activeSocial, setActiveSocial] = useState(null);
 
+  const handleNavClick = (id) => {
+    setActive(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (toggle) setToggle(false);
+  };
+
   return (
     <nav
       className={`${styles.paddingX} w-full flex items-center py-2 fixed 
       top-0 z-20 bg-flashWhite sm:opacity-[0.97] xxs:h-[12vh]`}>
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-        <a
-          href="#"
+        <Link
+          to="/"
           className="flex items-center gap-2"
           onClick={() => {
             setActive('');
@@ -45,7 +55,7 @@ const Navbar = () => {
           <span className="text-eerieBlack font-opensans text-[24px] font-[500] tracking-wider">
             Ethan Martinez
           </span>
-        </a>
+        </Link>
         <div className="flex items-center">
           <ul className="list-none hidden sm:flex flex-row gap-14 mt-2">
             {navLinks.map((nav) => (
@@ -53,9 +63,9 @@ const Navbar = () => {
                 key={nav.id}
                 className={`${active === nav.title ? 'text-french' : 'text-eerieBlack'
                   } hover:text-taupe text-[21px] font-medium font-mova 
-                  uppercase tracking-[3px] cursor-pointer nav-links`}
-                onClick={() => setActive(nav.title)}>
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                uppercase tracking-[3px] cursor-pointer nav-links`}
+                onClick={() => handleNavClick(nav.id)}>
+                {nav.title}
               </li>
             ))}
           </ul>
@@ -97,16 +107,12 @@ const Navbar = () => {
                 items-start justify-end mt-[10rem] -ml-[35px]">
                 {navLinks.map((nav) => (
                   <li
-                    id={nav.id}
                     key={nav.id}
                     className={`${active === nav.title ? 'text-french' : 'text-eerieBlack'
                       } text-[88px] font-bold font-arenq 
                       uppercase tracking-[1px] cursor-pointer`}
-                    onClick={() => {
-                      setToggle(!toggle);
-                      setActive(nav.title);
-                    }}>
-                    <a href={`#${nav.id}`}>{nav.title}</a>
+                    onClick={() => handleNavClick(nav.id)}>
+                    {nav.title}
                   </li>
                 ))}
               </ul>
