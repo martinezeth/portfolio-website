@@ -37,13 +37,15 @@ const About = () => {
       <motion.p
         variants={fadeIn('', '', 0.1, 1)}
         className="mt-4 text-taupe text-[18px] max-w-3xl leading-[30px]">
-        As a recent Computer Science graduate from Sonoma State University, I've developed a passion for creating innovative software solutions that make a real impact. My journey in tech has been diverse and exciting - from developing immersive VR educational applications to building web-based crisis management platforms.
-
-        My experience as a Student Researcher allowed me to dive deep into computer vision, working on projects like analyzing NASA's 2017 Eclipse MegaMovie using machine learning algorithms. This experience, combined with my role as an XR Student Developer, has honed my skills in cutting-edge technologies and problem-solving.
-
-        I'm proficient in a range of programming languages including Python, C++, Swift, and JavaScript, and I'm always eager to learn more. Whether it's developing iOS apps, working with React and Node.js, or utilizing tools like Firebase and AWS, I approach each project with creativity and technical precision.
-
-        I'm excited about the possibilities that lie at the intersection of technology and real-world problems. My goal is to continue growing as a developer, taking on challenges that push the boundaries of what's possible in software development.
+        <span className="block indent-8">
+          As a recent Computer Science graduate from Sonoma State University, I combine technical expertise with a passion for developing innovative software solutions that address real-world challenges. My academic journey has been complemented by hands-on experience in various cutting-edge technologies and development methodologies.
+        </span>
+        <span className="block indent-8">
+          In my role as a Student Researcher, I focused on computer vision applications, notably contributing to the analysis of NASA's 2017 Eclipse MegaMovie using machine learning algorithms. Previously, as an XR Student Developer, I designed and implemented immersive VR educational applications, demonstrating my ability to work with emerging technologies.
+        </span>
+        <span className="block indent-8">
+          I approach each project with creativity and technical precision. I'm excited about the possibilities that lie at the intersection of technology and real-world problems. My goal is to continue growing as a developer, taking on challenges that push the boundaries of what's possible in software development.
+        </span>
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">

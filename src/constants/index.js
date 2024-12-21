@@ -14,6 +14,9 @@ import {
   python,
   manualClassifier,
   wagerWiseHome,
+  wagerWiseLiveSession,
+  wagerWiseSettings,
+  crisisCompanionMap,
   ssuPaw,
   gradCap,
 } from '../assets';
@@ -100,18 +103,18 @@ const experiences = [
     date: 'Graduated May 2024'
   },
   {
-    title: 'XR Student Developer',
-    company_name: 'Sonoma State University',
-    icon: ssuPaw,
-    iconBg: '#333333',
-    date: 'Aug 2021 - Feb 2022',
-  },
-  {
     title: 'Student Researcher',
     company_name: 'Sonoma State University',
     icon: ssuPaw,
     iconBg: '#333333',
     date: 'Sept 2023 - May 2024',
+  },
+  {
+    title: 'XR Student Developer',
+    company_name: 'Sonoma State University',
+    icon: ssuPaw,
+    iconBg: '#333333',
+    date: 'Aug 2021 - Feb 2022',
   },
 ];
 
@@ -135,7 +138,7 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: manualClassifier,
+    images: [manualClassifier],
     repo: 'https://github.com/martinezeth/manual-image-classifier',
     //demo: '',
   },
@@ -146,7 +149,7 @@ const projects = [
       'WagerWise is an iOS application designed to help users track their gambling activities and promote responsible gaming habits. It provides real-time session tracking, customizable limits, and insightful statistics to encourage mindful betting practices.',
     tags: [
       {
-        name: 'react',
+        name: 'swift',
         color: 'blue-text-gradient',
       },
       {
@@ -158,7 +161,7 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: wagerWiseHome,
+    images: [wagerWiseHome, wagerWiseLiveSession, wagerWiseSettings],
     // repo: '',
     // demo: '',
   },
@@ -180,9 +183,9 @@ const projects = [
         color: 'pink-text-gradient',
       },
     ],
-    image: '',
+    images: [crisisCompanionMap],
     repo: '',
-    demo: '',
+    // demo: '',
   },
 ];
 

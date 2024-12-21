@@ -43,6 +43,9 @@ import gradCap from './icons/gradCap.png';
 
 import manualClassifier from './projects/manual-classifier.png';
 import wagerWiseHome from './projects/wagerwise-home-screenshot.png';
+import wagerWiseLiveSession from './projects/wagerwise-live-session-screenshot.png';
+import wagerWiseSettings from './projects/wagerwise-settings-screenshot.png';
+import crisisCompanionMap from './projects/crisis-companion-map-view.png';
 
 
 export {
@@ -80,6 +83,9 @@ export {
   unrealEngine,
   manualClassifier,
   wagerWiseHome,
+  wagerWiseLiveSession,
+  wagerWiseSettings,
+  crisisCompanionMap,
   ssuPaw,
   gradCap,
   sanFrancisco,
