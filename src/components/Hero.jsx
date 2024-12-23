@@ -65,17 +65,6 @@ const Hero = () => {
           />
         </div>
       </div>
-
-      {/* Your image comes here. Feel free to remove image if you don't plan to have one.*/}
-      {/* <div>
-        <img
-          className="absolute bottom-0 right-0 
-          lg:w-[30%] md:w-[40%] sm:w-[50%] w-[60%]
-          lg:h-auto md:h-[70vh] sm:h-[60vh] h-[50vh] object-contain"
-          src={headshot}
-          alt="Ethan"
-        />
-      </div> */}
     </section>
   );
 };

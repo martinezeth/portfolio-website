@@ -118,74 +118,49 @@ const experiences = [
   },
 ];
 
-//  TODO:  Modify formatting of 'projects' props to contain tech stack
 const projects = [
   {
     id: 'project-1',
     name: 'Manual Image Classifier',
-    description: 'A tool for manually classifying images to create training datasets for machine learning models. It provides an intuitive interface for users to efficiently sort and label large volumes of images, streamlining the data preparation process for ML projects.',
-    tags: [
-      {
-        name: 'react',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'mongodb',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'tailwind',
-        color: 'pink-text-gradient',
-      },
-    ],
+    description: `Created for use by my computer vision research group at Sonoma State University, this Python tool dramatically accelerates the process of labeling data for training datasets. 
+    
+    The tool offers quick keyboard-based classification with remote server integration, supports dual classification modes, enables auto-sync between local and server environments, and provides simple category management.`,
+    techStack: {
+      primary: ['Python'],
+      libraries: ['Paramiko', 'Matplotlib', 'NumPy'],
+      development: ['Conda']
+    },
     images: [manualClassifier],
-    repo: 'https://github.com/martinezeth/manual-image-classifier',
-    //demo: '',
+    repo: 'https://github.com/martinezeth/manual-image-classifier'
   },
   {
     id: 'project-2',
-    name: 'WagerWise [In Progress]',
-    description:
-      'WagerWise is an iOS application designed to help users track their gambling activities and promote responsible gaming habits. It provides real-time session tracking, customizable limits, and insightful statistics to encourage mindful betting practices.',
-    tags: [
-      {
-        name: 'swift',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'restapi',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'scss',
-        color: 'pink-text-gradient',
-      },
-    ],
+    name: 'WagerWise',
+    description: `An iOS application focusing on responsible gambling through real-time session tracking and data analytics. The app implements Firebase for authentication and real-time data synchronization, providing users with comprehensive tracking and analysis of their gambling activities.
+
+    Key features include session tracking with customizable alerts, comprehensive statistics dashboard, secure user authentication, and customizable betting limits.`,
+    techStack: {
+      frontend: ['Swift', 'UIKit', 'SwiftUI'],
+      backend: ['Firebase'],
+      database: ['Firebase Realtime Database'],
+      tools: ['Xcode', 'TestFlight']
+    },
     images: [wagerWiseHome, wagerWiseLiveSession, wagerWiseSettings],
-    // repo: '',
-    // demo: '',
+    status: 'Testing Phase - Preparing for App Store submission',
   },
   {
     id: 'project-3',
     name: 'Crisis Companion',
-    description: 'Crisis Companion is a web-based platform designed to provide crucial information and resources during emergency situations. It features real-time updates, interactive maps, and a user-friendly interface to help communities navigate crises effectively.',
-    tags: [
-      {
-        name: 'nextjs',
-        color: 'blue-text-gradient',
-      },
-      {
-        name: 'supabase',
-        color: 'green-text-gradient',
-      },
-      {
-        name: 'css',
-        color: 'pink-text-gradient',
-      },
-    ],
+    description: `A web-based emergency response platform featuring an interactive map interface built with Mapbox GL JS. Led the development of the map visualization component, enabling real-time crisis event reporting and location-based information display.
+
+    Key contributions include implementing the interactive map interface with custom marker clustering, real-time geolocation tracking, custom event filtering system for different crisis types, and dynamic information display for crisis events.`,
+    techStack: {
+      frontend: ['React', 'Leaflet JS', 'Tailwind CSS'],
+      backend: ['Node.js', 'Express'],
+      database: ['PostgreSQL'],
+      tools: ['npm']
+    },
     images: [crisisCompanionMap],
-    repo: '',
-    // demo: '',
   },
 ];
 
