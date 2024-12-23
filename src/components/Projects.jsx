@@ -55,12 +55,13 @@ const ProjectCard = ({
         />
 
         {active !== id ? (
-          <div className="flex items-center justify-start pr-[4.5rem]">
+          <div className="flex items-center justify-center w-full">
             <h3
-              className="font-extrabold font-beckman uppercase w-[200px] h-[30px] 
-              whitespace-nowrap sm:text-[27px] text-[18px] text-timberWolf tracking-[1px]
-              absolute z-0 lg:bottom-[7rem] lg:rotate-[-90deg] lg:origin-[0,0]
-              leading-none z-20">
+              className="font-extrabold font-beckman uppercase text-timberWolf tracking-[1px]
+                absolute z-20 text-center px-4 text-[16px] bottom-8
+                lg:text-[27px] lg:px-0 lg:bottom-[7rem] lg:rotate-[-90deg] lg:origin-[0,0]
+                lg:translate-x-[60px] lg:whitespace-nowrap lg:w-[200px]
+                whitespace-normal leading-tight">
               {name}
             </h3>
           </div>
@@ -228,7 +229,7 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
-  const [active, setActive] = useState('project-2');
+  const [active, setActive] = useState('project-1');
 
   return (
     <div className="-mt-[4rem]">

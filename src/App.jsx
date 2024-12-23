@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/" element={
             <>
               <Hero />
-              <div id="about" className="bg-about bg-cover bg-center bg-no-repeat">
+              <div id="about" className="bg-about bg-cover bg-center bg-no-repeat -mt-[50px] sm:-mt-0">
                 <About />
               </div>
               <Projects />

@@ -1,7 +1,6 @@
 import bwmap from './backgrounds/bw-map.jpeg';
 import sanFrancisco from './backgrounds/san-francisco-skyline.jpg';
 import whiteabstract from './backgrounds/white-abstract.png';
-import worldmap from './backgrounds/world-map.png';
 import abstractspiderweb from './backgrounds/abstract-spiderweb.jpg';
 
 import logo from './logo/personal-logo-black.png';
@@ -51,7 +50,6 @@ import crisisCompanionMap from './projects/crisis-companion-map-view.png';
 export {
   bwmap,
   whiteabstract,
-  worldmap,
   abstractspiderweb,
   logo,
   backend,
