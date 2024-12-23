@@ -10,9 +10,11 @@ const ProjectCard = ({
   id,
   name,
   description,
+  features,
   images,
   repo,
   demo,
+  techStack,
   index,
   active,
   handleClick,
@@ -30,17 +32,21 @@ const ProjectCard = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const getAllTechnologies = (techStack) => {
+    if (!techStack) return [];
+    return Object.values(techStack).flat();
+  };
+
   return (
     <>
       <motion.div
         variants={fadeIn('right', 'spring', index * 0.5, 0.75)}
         className={`relative ${active === id ? 'lg:flex-[3.5] flex-[10]' : 'lg:flex-[0.5] flex-[2]'
-          } flex items-center justify-center min-w-[170px] 
-        h-[420px] cursor-pointer card-shadow`}
+          } flex items-center justify-center min-w-[170px] cursor-pointer card-shadow transition-all duration-300 h-[480px]`}
         onClick={() => handleClick(id)}>
-        <div
-          className="absolute top-0 left-0 z-10 bg-jetLight 
-          h-full w-full opacity-[0.5] rounded-[24px]"></div>
+
+        <div className={`absolute top-0 left-0 z-10 h-full w-full rounded-[24px] transition-all duration-300 ${active === id ? 'bg-black/50' : 'bg-jetLight opacity-[0.5]'
+          }`} />
 
         <img
           src={images[currentImageIndex]}
@@ -52,76 +58,99 @@ const ProjectCard = ({
           <div className="flex items-center justify-start pr-[4.5rem]">
             <h3
               className="font-extrabold font-beckman uppercase w-[200px] h-[30px] 
-                whitespace-nowrap sm:text-[27px] text-[18px] text-timberWolf tracking-[1px]
-                absolute z-0 lg:bottom-[7rem] lg:rotate-[-90deg] lg:origin-[0,0]
-                leading-none z-20">
+              whitespace-nowrap sm:text-[27px] text-[18px] text-timberWolf tracking-[1px]
+              absolute z-0 lg:bottom-[7rem] lg:rotate-[-90deg] lg:origin-[0,0]
+              leading-none z-20">
               {name}
             </h3>
           </div>
         ) : (
-          <>
-            <div
-              className="absolute bottom-0 p-8 justify-start w-full 
-              flex-col bg-[rgba(122,122,122,0.5)] rounded-b-[24px] z-20">
+          <div className="absolute bottom-0 p-8 justify-start w-full 
+            flex-col bg-[rgba(0,0,0,0.75)] rounded-b-[24px] z-20">
 
-              {/* Image controls - only show if there are multiple images */}
-              {images.length > 1 && (
-                <div className="absolute bottom-[95%] left-0 right-0 flex justify-center gap-2 pb-2">
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentImageIndex(idx);
-                      }}
-                      className={`w-2 h-2 rounded-full ${currentImageIndex === idx ? 'bg-white' : 'bg-gray-400'
-                        }`}
-                    />
-                  ))}
-                </div>
-              )}
+            {/* Image controls */}
+            {images.length > 1 && (
+              <div className="absolute bottom-[95%] left-0 right-0 flex justify-center gap-2 pb-2">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(idx);
+                    }}
+                    className={`w-2 h-2 rounded-full ${currentImageIndex === idx ? 'bg-white' : 'bg-gray-400'
+                      }`}
+                  />
+                ))}
+              </div>
+            )}
 
-              {/* View Full Image button */}
+            {/* Controls for image and repo */}
+            <div className="absolute top-4 right-4 flex gap-4">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowFullImage(true);
                 }}
-                className="absolute top-4 right-20 bg-night p-2 rounded-full 
-                  opacity-75 hover:opacity-100 transition-opacity z-30">
+                className="bg-night p-2 rounded-full opacity-75 hover:opacity-100 transition-opacity">
                 <span className="text-white text-sm">🔍</span>
               </button>
 
               {repo && (
-                <div className="absolute top-4 right-4">
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(repo, '_blank');
-                    }}
-                    className="bg-night sm:w-11 sm:h-11 w-10 h-10 rounded-full 
-                      flex justify-center items-center cursor-pointer
-                      sm:opacity-[0.9] opacity-[0.8]">
-                    <img
-                      src={github}
-                      alt="source code"
-                      className="w-4/5 h-4/5 object-contain"
-                    />
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(repo, '_blank');
+                  }}
+                  className="bg-night sm:w-11 sm:h-11 w-10 h-10 rounded-full 
+                    flex justify-center items-center cursor-pointer
+                    sm:opacity-[0.9] opacity-[0.8]">
+                  <img
+                    src={github}
+                    alt="source code"
+                    className="w-4/5 h-4/5 object-contain"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="space-y-4 overflow-y-auto max-h-[calc(480px-200px)] pr-2">
+              <h2 className="font-bold sm:text-[32px] text-[24px] 
+                text-timberWolf uppercase font-beckman">
+                {name}
+              </h2>
+
+              <div className="space-y-4">
+                <p className="text-timberWolf sm:text-[14px] text-[12px] 
+                  max-w-3xl sm:leading-[24px] leading-[18px]
+                  font-poppins tracking-[1px] whitespace-pre-line">
+                  {description}
+                </p>
+
+                {features && features.length > 0 && (
+                  <div className="mt-4">
+                    <div className="text-timberWolf font-semibold mb-2">Key Features:</div>
+                    <ul className="list-disc list-inside space-y-1">
+                      {features.map((feature, index) => (
+                        <li key={index} className="text-timberWolf sm:text-[14px] text-[12px] 
+                          font-poppins tracking-[1px] pl-2">
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {techStack && (
+                <div className="pt-2 border-t border-gray-600">
+                  <div className="text-timberWolf text-[13px] font-poppins">
+                    {getAllTechnologies(techStack).join(' • ')}
                   </div>
                 </div>
               )}
 
-              <h2
-                className="font-bold sm:text-[32px] text-[24px] 
-                text-timberWolf uppercase font-beckman sm:mt-0 -mt-[1rem]">
-                {name}
-              </h2>
-              <p
-                className="text-silver sm:text-[14px] text-[12px] 
-                max-w-3xl sm:leading-[24px] leading-[18px]
-                font-poppins tracking-[1px]">
-                {description}
-              </p>
               {demo && (
                 <button
                   className="live-demo flex justify-between 
@@ -129,9 +158,8 @@ const ProjectCard = ({
                   font-bold font-beckman items-center py-5 pl-2 pr-3 
                   whitespace-nowrap gap-1 sm:w-[138px] sm:h-[50px] 
                   w-[125px] h-[46px] rounded-[10px] glassmorphism 
-                  sm:mt-[22px] mt-[16px] hover:bg-battleGray 
-                  hover:text-eerieBlack transition duration-[0.2s] 
-                  ease-in-out"
+                  hover:bg-battleGray hover:text-eerieBlack 
+                  transition duration-[0.2s] ease-in-out"
                   onClick={() => window.open(demo, '_blank')}
                   onMouseOver={() => {
                     document
@@ -153,7 +181,7 @@ const ProjectCard = ({
                 </button>
               )}
             </div>
-          </>
+          </div>
         )}
       </motion.div>
 
@@ -173,19 +201,13 @@ const ProjectCard = ({
               {images.length > 1 && (
                 <>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      previousImage(e);
-                    }}
+                    onClick={previousImage}
                     className="absolute left-4 bg-white/10 p-2 rounded-full 
                       hover:bg-white/20 transition-colors">
                     ←
                   </button>
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      nextImage(e);
-                    }}
+                    onClick={nextImage}
                     className="absolute right-4 bg-white/10 p-2 rounded-full 
                       hover:bg-white/20 transition-colors">
                     →
@@ -209,19 +231,20 @@ const Projects = () => {
   const [active, setActive] = useState('project-2');
 
   return (
-    <div className="-mt-[6rem]">
+    <div className="-mt-[4rem]">
       <motion.div variants={textVariant()}>
         <p className={`${styles.sectionSubText}`}>Selected Works</p>
         <h2 className={`${styles.sectionHeadTextLight}`}>Projects.</h2>
       </motion.div>
 
-      <div className="w-full flex">
+      <div className="w-full flex mb-20">
         <motion.p
           variants={fadeIn('', '', 0.1, 1)}
           className="mt-4 text-taupe text-[18px] max-w-3xl leading-[30px]">
-          In this section, you'll find a collection of projects that highlight my hands-on experience and problem-solving abilities.
-          From developing a manual image classification tool for computer vision models to building a real-time iOS app for tracking gambling activities, these projects reflect my versatility in handling diverse technologies.
-          {/* Each project is linked to its code repository and live demos, showcasing my proficiency in tackling complex problems, adapting to new tools, and delivering user-focused solutions. */}
+          The following projects showcase my skills and experience through
+          real-world examples of my work. Each project demonstrates my ability
+          to solve complex problems, work with different technologies, and
+          effectively manage project development.
         </motion.p>
       </div>
 
@@ -231,7 +254,7 @@ const Projects = () => {
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
         className={`${styles.innerWidth} mx-auto flex flex-col`}>
-        <div className="mt-[50px] flex lg:flex-row flex-col min-h-[70vh] gap-5">
+        <div className="mt-[20px] flex lg:flex-row flex-col min-h-[70vh] gap-5">
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}
