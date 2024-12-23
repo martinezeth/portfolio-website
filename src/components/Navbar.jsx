@@ -87,14 +87,13 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* mobile */}
-        <div className="sm:hidden flex flex-1 w-screen justify-end items-center">
+        {/* Mobile Menu */}
+        <div className="sm:hidden flex flex-1 justify-end items-center">
           {toggle ? (
             <div
-              className={`p-6 bg-flashWhite opacity-[0.98] absolute 
-                top-0 left-0 w-screen h-[100vh] z-10 menu ${toggle ? 'menu-open' : 'menu-close'
-                }`}>
-              <div className="flex justify-end">
+              className={`fixed top-0 right-0 w-[70%] h-full bg-flashWhite z-20 transition-transform 
+                transform ${toggle ? 'translate-x-0' : 'translate-x-full'} shadow-lg`}>
+              <div className="flex justify-end p-4">
                 <img
                   src={close}
                   alt="close"
@@ -103,20 +102,19 @@ const Navbar = () => {
                 />
               </div>
               <ul
-                className="list-none flex flex-col -gap-[1rem] 
-                items-start justify-end mt-[10rem] -ml-[35px]">
+                className="list-none flex flex-col gap-6 items-start mt-6 px-4">
                 {navLinks.map((nav) => (
                   <li
                     key={nav.id}
                     className={`${active === nav.title ? 'text-french' : 'text-eerieBlack'
-                      } text-[88px] font-bold font-arenq 
+                      } text-[18px] font-semibold font-opensans 
                       uppercase tracking-[1px] cursor-pointer`}
                     onClick={() => handleNavClick(nav.id)}>
                     {nav.title}
                   </li>
                 ))}
               </ul>
-              <div className="flex mt-10 gap-5">
+              <div className="flex mt-6 gap-5 px-4">
                 <SocialIcon
                   href="https://github.com/martinezeth"
                   src={githubDark}
@@ -137,7 +135,7 @@ const Navbar = () => {
             <img
               src={menu}
               alt="menu"
-              className="w-[34px] h-[34px] object-contain cursor-pointer"
+              className="w-[30px] h-[30px] object-contain cursor-pointer"
               onClick={() => setToggle(!toggle)}
             />
           )}

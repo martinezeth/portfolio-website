@@ -12,6 +12,7 @@ const Hero = () => {
 
   return (
     <section className="relative w-full h-[60vh] mx-auto overflow-hidden">
+      {/* Background Image and Overlay */}
       <div className="absolute top-0 left-0 z-0 w-full h-full">
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <img
@@ -21,7 +22,9 @@ const Hero = () => {
         />
       </div>
 
-      <div className={`absolute inset-0 ${styles.paddingX} 
+      {/* Text Content */}
+      <div
+        className={`absolute inset-0 ${styles.paddingX} 
         max-w-7xl mx-auto flex flex-row items-start justify-between gap-3`}>
         <div className="flex flex-col justify-center items-center mt-5 ml-3">
           <div className="w-5 h-5 rounded-full bg-[#0a0a0a] sm:hidden" />
@@ -29,9 +32,14 @@ const Hero = () => {
         </div>
 
         <div className="z-10 mt-[100px]">
-          <h1 className={`${styles.heroHeadText} text-timberWolf font-poppins uppercase`}>
+          <h1
+            className={`${styles.heroHeadText} text-timberWolf font-poppins uppercase`}>
             Hi, I'm{' '}
-            <span className="sm:text-battleGray sm:text-[90px] text-eerieBlack text-[50px] font-mova font-extrabold uppercase">
+            <span
+              className="sm:text-battleGray sm:text-[90px] 
+              text-timberWolf xs:text-[50px] text-[40px] 
+              font-mova font-extrabold uppercase 
+              drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
               Ethan.
             </span>
           </h1>
@@ -45,13 +53,15 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="absolute xs:bottom-10 bottom-32 w-full 
-        flex justify-center items-center">
+      {/* Scroll Icon */}
+      <div
+        className="absolute xs:bottom-10 bottom-[80px] w-full 
+        flex justify-center items-center sm:bottom-10">
         <div
           onClick={handleScrollToAbout}
           className="w-[35px] h-[64px] rounded-3xl border-4 
             border-french border-dim flex
-            justify-center items-start p-2 cursor-pointer">
+            justify-center items-start p-2 cursor-pointer sm:bottom-auto">
           <motion.div
             animate={{
               y: [0, 24, 0],
