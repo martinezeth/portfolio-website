@@ -22,7 +22,12 @@ const Tag = href ? 'a' : 'div';
     </div>
   ) : null}
   <div class="body">
-    {d.eyebrow && <span class="lbl">{d.eyebrow}</span>}
+    {(d.eyebrow || d.badge) && (
+      <span class="lbl">
+        {d.eyebrow}
+        {d.badge && <span class="badge">{d.eyebrow ? ' · ' : ''}{d.badge}</span>}
+      </span>
+    )}
     <h3 class="f">{d.title}</h3>
     <p>{d.summary}</p>
   </div>
@@ -44,6 +49,7 @@ const Tag = href ? 'a' : 'div';
   .cover.stat { padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
   .value { font-size: 48px; letter-spacing: -0.03em; line-height: 1; }
   .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .badge { color: var(--volt); }
   h3 { font-size: 22px; letter-spacing: -0.015em; }
   p { margin: 0; font-size: 15px; color: var(--text-2); }
   @media (min-width: 56rem) {

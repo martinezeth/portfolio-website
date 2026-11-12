@@ -45,6 +45,8 @@ const projects = defineCollection({
     gallery: z.array(image).default([]),
     // Small eyebrow on a More Work card: "Senior project · 2024".
     eyebrow: z.string().optional(),
+    // Short status shown after the eyebrow in the accent color: "In progress".
+    badge: z.string().optional(),
     // Big numeral cover for a card with no image, e.g. "5,639" + "sets migrated · 0 failures".
     stat: z.object({ value: z.string(), label: z.string() }).optional(),
     // A note under a panel, e.g. why there are no screenshots.

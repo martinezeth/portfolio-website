@@ -4,6 +4,7 @@ summary: "Moved 321 workouts past the limits of the official API by matching 341
 order: 30
 featured: false
 eyebrow: "Personal tool · Python"
+badge: "Open-source implementation in progress"
 panel: "#2B2B35"
 stat:
   value: "5,639"

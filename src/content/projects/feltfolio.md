@@ -36,9 +36,8 @@ gallery:
   - src: "/images/feltfolio-brand.jpg"
     alt: "FeltFolio's commissioned icon and wordmark"
     kind: "phone"
-links:
-  - label: "feltfolio.app"
-    href: "https://feltfolio.app"
+# TODO(ethan): restore the feltfolio.app link when the site is ready:
+links: []
 # Flip to true once the sections below are written; the panel then links to /projects/feltfolio/.
 caseStudy: false
 ---
