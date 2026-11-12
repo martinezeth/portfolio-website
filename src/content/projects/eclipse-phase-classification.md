@@ -1,10 +1,10 @@
 ---
 title: "Eclipse Phase Classifier"
-summary: "A CNN that sorts citizen-science eclipse photos into eight phases, trained on a labeled subset of NASA's Eclipse Megamovie dataset. I also built the keyboard-driven labeling tool the team used to create the training set."
+summary: "My undergraduate research project at Sonoma State as a Koret Scholar: a CNN that sorts citizen-science eclipse photos into eight phases, trained on a labeled subset of NASA's Eclipse Megamovie dataset. I also built the keyboard-driven labeling tool the team used to create the training set."
 order: 20
 featured: true
 year: "2023–24"
-status: "Research · Sonoma State"
+status: "Undergraduate research · Koret Scholars"
 accent: "#FFB27A"
 panel: "#3A2230"
 bullets:
@@ -24,5 +24,7 @@ gallery:
 links:
   - label: "Eclipse Megamovie write-up"
     href: "https://eclipsemegamovie.org/resources/news/koret-student-project?data=7"
+  - label: "Koret Scholars Program"
+    href: "https://orsp.sonoma.edu/student-research/koret-scholars-program"
 caseStudy: false
 ---
