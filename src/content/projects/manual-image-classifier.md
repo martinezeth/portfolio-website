@@ -1,6 +1,6 @@
 ---
 title: "Manual Image Classifier"
-summary: "Keyboard-driven labeling over SSH, with classified batches syncing to teammates' machines for training."
+summary: "The labeling tool from the eclipse research. Keyboard-driven classification over SSH, with labeled batches syncing to teammates' machines for training."
 order: 20
 featured: false
 eyebrow: "Eclipse research tooling · Python"

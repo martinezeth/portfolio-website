@@ -9,6 +9,7 @@ accent: "#FFD400"
 panel: "#141416"
 bullets:
   - "UI designed by the founder; engineering, cross-platform architecture and releases by me"
+  - "AI coach on Google Gemini, grounded in the app's drills and benchmarks so feedback is specific"
   - "12+ releases shipped across TestFlight, the App Store and Google Play"
 tech: ["Kotlin Multiplatform", "Swift", "Jetpack Compose"]
 gallery:
