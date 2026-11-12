@@ -1,0 +1,52 @@
+---
+const items = [
+  {
+    when: 'Dec 2024 — now',
+    title: 'Software Engineer · RallySite',
+    what: 'LLM tooling on Amazon Bedrock, internal web applications, and cross-platform apps in Kotlin Multiplatform.',
+  },
+  {
+    when: 'Aug 2023 — May 2024',
+    title: 'Koret Scholars Researcher · Sonoma State',
+    what: "Eclipse phase classification with the NASA Eclipse Megamovie dataset.",
+  },
+  {
+    when: 'Oct 2022 — Mar 2024',
+    title: 'XR Student Developer · Sonoma State',
+    what: 'VR and AR experiences for campus programs in Unity.',
+  },
+  { when: 'May 2024', title: 'B.S. Computer Science · Sonoma State University', what: '' },
+];
+---
+<ol class="timeline">
+  {items.map((i) => (
+    <li>
+      <span class="m when">{i.when}</span>
+      <div>
+        <div class="title">{i.title}</div>
+        {i.what && <div class="what">{i.what}</div>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  li:last-child { border-bottom: 1px solid var(--line); }
+  .when { font-size: 12px; color: var(--slate); }
+  .title { font-weight: 600; font-size: 17px; }
+  .what { color: var(--text-2); font-size: 15px; margin-top: 2px; }
+  @media (min-width: 56rem) {
+    li { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; }
+    .when { font-size: 13px; padding-top: 3px; }
+    .title { font-size: 18px; }
+    .what { font-size: inherit; margin-top: 4px; }
+  }
+</style>

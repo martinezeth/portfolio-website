@@ -1,0 +1,48 @@
+---
+import { site } from '../site';
+import logo from '../assets/monogram.png';
+
+interface Props {
+  /** Prefix for anchors; "/" on sub-pages so links go home. */
+  base?: string;
+}
+const { base = '' } = Astro.props;
+const links = [
+  ['Work', '#work'],
+  ['Experience', '#experience'],
+  ['About', '#about'],
+  ['Contact', '#contact'],
+];
+---
+<nav class="wrap nav" aria-label="Primary">
+  <a class="brand" href={base || '#top'}>
+    <img src={logo.src} width="40" height="40" alt={site.name} />
+    <span class="name">{site.name}</span>
+  </a>
+  <div class="links">
+    {links.map(([label, hash]) => (
+      <a class="navlink" href={base + hash}>{label}</a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 16px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 32px; height: 32px; object-fit: contain; }
+  .name { display: none; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .links { display: flex; gap: 16px; font-family: var(--font-mono); font-size: 12px; }
+  @media (min-width: 56rem) {
+    .nav { padding-block: 22px; border-bottom: 0; }
+    .brand img { width: 40px; height: 40px; }
+    .name { display: inline; }
+    .links { gap: 28px; font-family: inherit; font-size: 15px; font-weight: 500; }
+  }
+</style>

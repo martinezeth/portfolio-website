@@ -1,0 +1,206 @@
+---
+/**
+ * Base layout: fonts, design tokens, meta, analytics.
+ * Every page on the site goes through here.
+ */
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/fraunces/full-italic.css';
+import '@fontsource-variable/hanken-grotesk';
+import '@fontsource-variable/jetbrains-mono';
+import { site } from '../site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Path of the OG image under public/. */
+  image?: string;
+}
+const { title, description = site.description, image = '/og.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#202124" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {site.goatcounter && (
+      <script
+        is:inline
+        data-goatcounter={`https://${site.goatcounter}.goatcounter.com/count`}
+        async
+        src="//gc.zgo.at/count.js"></script>
+    )}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* ------------------------------------------------------------------
+     Tokens. Charcoal page, bone text, one accent (Volt). Project colors
+     come from each project's own branding and live in its frontmatter.
+     ------------------------------------------------------------------ */
+  :root {
+    --page: #202124;
+    --surface: #27292D;
+    --well: #1A1B1E;
+    --text: #F1EFEA;
+    --text-2: #C9CBD0;
+    --slate: #A3A7AE;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.18);
+    --volt: #9D8CFF;
+    --volt-deep: #5B3DF5;
+
+    --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+    --font-body: 'Hanken Grotesk Variable', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --container: 1184px;
+    --gutter: 20px;
+  }
+  @media (min-width: 56rem) {
+    :root { --gutter: 48px; }
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    background: var(--page);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+  @media (min-width: 56rem) {
+    html { font-size: 17px; line-height: 1.6; }
+  }
+  body { margin: 0; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--volt);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  button { font: inherit; color: inherit; }
+  h1, h2, h3 { margin: 0; font-weight: 500; }
+
+  .skip {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    padding: 10px 14px;
+    background: var(--text);
+    color: var(--page);
+    border-radius: 999px;
+    z-index: 10;
+  }
+  .skip:focus { top: 16px; }
+
+  /* Type roles */
+  .f {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  }
+  .fi {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  }
+  .m { font-family: var(--font-mono); }
+  .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  /* Page frame */
+  .wrap {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Links */
+  .navlink { color: var(--slate); transition: color 0.2s; }
+  .navlink:hover { color: var(--text); }
+  .u { position: relative; display: inline-block; font-weight: 500; }
+  .u::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: var(--volt);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.32s var(--ease);
+  }
+  .u:hover::after, .u:focus-visible::after { transform: scaleX(1); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 20px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: none;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.24s var(--ease), background 0.24s, color 0.24s, border-color 0.24s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-fill { background: var(--text); color: var(--page); }
+  .btn-fill:hover { background: var(--volt-deep); color: #fff; }
+  .btn-ghost { border-color: var(--line-strong); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--text); }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>

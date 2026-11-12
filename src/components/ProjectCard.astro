@@ -1,0 +1,56 @@
+---
+/** A More Work card. Links to the project page, else its first link, else nowhere. */
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const d = project.data;
+const cover = d.gallery[0];
+const href = d.caseStudy ? `/projects/${project.id}/` : d.links[0]?.href;
+const external = href && !href.startsWith('/');
+const Tag = href ? 'a' : 'div';
+---
+<Tag class:list={['card', { linked: !!href }]} href={href} rel={external ? 'noopener' : undefined}>
+  {cover ? (
+    <div class="cover" style={`background:${d.panel ?? 'var(--well)'}`}>
+      <img src={cover.src} alt={cover.alt} loading="lazy" />
+    </div>
+  ) : d.stat ? (
+    <div class="cover stat" style={`background:${d.panel ?? 'var(--well)'}`}>
+      <span class="f value">{d.stat.value}</span>
+      <span class="lbl">{d.stat.label}</span>
+    </div>
+  ) : null}
+  <div class="body">
+    {d.eyebrow && <span class="lbl">{d.eyebrow}</span>}
+    <h3 class="f">{d.title}</h3>
+    <p>{d.summary}</p>
+  </div>
+</Tag>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    overflow: hidden;
+    transition: transform 0.24s var(--ease), border-color 0.24s;
+  }
+  .card.linked:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.22); }
+  .cover { height: 160px; padding: 12px 12px 0; overflow: hidden; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 8px 8px 0 0; }
+  .cover.stat { padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .value { font-size: 48px; letter-spacing: -0.03em; line-height: 1; }
+  .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; }
+  h3 { font-size: 22px; letter-spacing: -0.015em; }
+  p { margin: 0; font-size: 15px; color: var(--text-2); }
+  @media (min-width: 56rem) {
+    .card { border-radius: 20px; }
+    .cover { height: 190px; padding: 14px 14px 0; }
+    .value { font-size: 56px; }
+    .body { padding: 20px 22px 22px; gap: 8px; }
+    h3 { font-size: 24px; }
+  }
+</style>

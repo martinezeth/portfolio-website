@@ -1,0 +1,149 @@
+---
+/**
+ * Horizontal, scroll-snapping gallery with a "1 / n" counter and arrow
+ * buttons. Works without JS (native scroll); the script only drives the
+ * counter and the buttons.
+ */
+interface Image { src: string; alt: string; kind: 'phone' | 'wide' | 'contain' }
+interface Props {
+  images: Image[];
+  /** Deep color behind wide tiles. */
+  panel?: string;
+  /** Larger sizes for the project page. */
+  size?: 'panel' | 'page';
+}
+const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
+---
+<div class={`gallery gallery-${size}`} data-gallery>
+  <div class="track" data-track tabindex="0" aria-label="Project images, scroll sideways">
+    {images.map((img) =>
+      img.kind === 'phone' ? (
+        <figure class="phone"><img src={img.src} alt={img.alt} loading="lazy" /></figure>
+      ) : (
+        <figure class={`tile ${img.kind}`} style={`background:${panel}`}>
+          <img src={img.src} alt={img.alt} loading="lazy" />
+        </figure>
+      ),
+    )}
+    <slot />
+  </div>
+  {images.length > 1 && (
+    <div class="controls">
+      <span class="m count" aria-live="polite"><span data-index>1</span> / {images.length}</span>
+      <div class="arrows">
+        <button type="button" class="arrow" data-prev aria-label="Previous image">←</button>
+        <button type="button" class="arrow" data-next aria-label="Next image">→</button>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .gallery { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+  .track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px var(--gutter) 10px;
+    margin-inline: calc(-1 * var(--gutter));
+    scrollbar-width: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  @media (min-width: 56rem) {
+    .track {
+      gap: 20px;
+      padding: 8px 4px 16px;
+      margin-inline: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+    }
+    .track::-webkit-scrollbar { display: block; height: 6px; }
+    .track::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-radius: 3px; }
+  }
+  figure {
+    margin: 0;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
+  }
+  .phone {
+    width: 200px;
+    height: 432px;
+    border-radius: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #000;
+  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .tile {
+    height: 220px;
+    width: 300px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .tile img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+  .tile.contain img { object-fit: contain; }
+  .tile.contain { width: 280px; }
+
+  @media (min-width: 56rem) {
+    .gallery-panel .phone { width: 236px; height: 510px; border-radius: 30px; }
+    .gallery-panel .tile { height: 420px; width: 600px; padding: 16px; border-radius: 16px; }
+    .gallery-panel .tile.contain { width: 520px; }
+    .gallery-page .phone { width: 280px; height: 606px; border-radius: 34px; }
+    .gallery-page .tile { height: 606px; width: 760px; padding: 20px; border-radius: 16px; }
+    .gallery-page .tile.contain { width: 600px; }
+  }
+
+  .controls { display: flex; align-items: center; justify-content: space-between; padding-inline: 4px; }
+  .count { font-size: 12px; color: var(--slate); }
+  .arrows { display: flex; gap: 8px; }
+  .arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: none;
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, opacity 0.2s;
+  }
+  .arrow:hover { border-color: var(--text); }
+  .arrow[disabled] { opacity: 0.35; cursor: default; }
+</style>
+
+<script>
+  for (const gallery of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+    const track = gallery.querySelector<HTMLElement>('[data-track]');
+    const index = gallery.querySelector<HTMLElement>('[data-index]');
+    const prev = gallery.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = gallery.querySelector<HTMLButtonElement>('[data-next]');
+    if (!track || !index || !prev || !next) continue;
+    const items = Array.from(track.children) as HTMLElement[];
+
+    const current = () => {
+      const x = track.scrollLeft + 1;
+      let i = 0;
+      for (let k = 0; k < items.length; k++) if (items[k].offsetLeft - items[0].offsetLeft <= x) i = k;
+      return i;
+    };
+    const update = () => {
+      const i = current();
+      index.textContent = String(i + 1);
+      prev.disabled = i === 0;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+    const go = (i: number) => {
+      const target = items[Math.max(0, Math.min(items.length - 1, i))];
+      track.scrollTo({ left: target.offsetLeft - items[0].offsetLeft, behavior: 'smooth' });
+    };
+    prev.addEventListener('click', () => go(current() - 1));
+    next.addEventListener('click', () => go(current() + 1));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

@@ -1,0 +1,67 @@
+---
+/** Architecture of the multi-model assistant. Stands in for screenshots of an internal tool. */
+const left = [
+  { k: 'Client', v: 'React + TypeScript' },
+  { k: 'Auth', v: 'Cognito' },
+  { k: 'Deploy', v: 'Amplify CI/CD' },
+];
+const models = ['Claude', 'OpenAI', 'Google'];
+---
+<div class="diagram m" role="img" aria-label="Architecture: a React client with Cognito auth and Amplify deploys talks to an Amazon Bedrock router, which keeps history in DynamoDB and routes to Claude, OpenAI and Google models.">
+  <div class="col">
+    {left.map((b) => (
+      <div class="box"><div class="k">{b.k}</div><div class="v">{b.v}</div></div>
+    ))}
+  </div>
+  <div class="col">
+    <div class="box hub"><div class="k">Router</div><div class="v">Amazon Bedrock</div><div class="sub">model selection · streaming</div></div>
+    <div class="box center"><div class="k">History</div><div class="v">DynamoDB</div></div>
+  </div>
+  <div class="col">
+    {models.map((m) => <div class="box model">{m}</div>)}
+  </div>
+</div>
+
+<style>
+  .diagram {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 16px;
+    background: #1E3A6E;
+    color: #CFE0FF;
+    font-size: 10px;
+    height: 100%;
+    min-height: 240px;
+  }
+  .col { display: flex; flex-direction: column; gap: 8px; }
+  .box { padding: 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.08); }
+  .k { font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+  .v { margin-top: 3px; color: #fff; font-weight: 500; }
+  .sub { margin-top: 4px; opacity: 0.8; }
+  .hub { background: #F1EFEA; color: #1E3A6E; text-align: center; }
+  .hub .v { color: #1E3A6E; font-weight: 600; }
+  .center { text-align: center; }
+  .model { color: #fff; font-weight: 500; }
+
+  @media (min-width: 56rem) {
+    .diagram { gap: 24px; padding: 32px; border-radius: 20px; font-size: 12px; min-height: 420px; }
+    .col { gap: 14px; }
+    .box { padding: 14px 16px; border-radius: 12px; }
+    .k { font-size: 10px; }
+    .hub { padding: 18px 16px; }
+    .diagram::before, .diagram::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 24px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .diagram::before { left: calc(33.3% - 12px); }
+    .diagram::after { left: calc(66.6% - 12px); }
+  }
+</style>

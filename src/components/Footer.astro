@@ -1,0 +1,30 @@
+---
+import { site } from '../site';
+import logo from '../assets/monogram.png';
+interface Props { topHref?: string; topLabel?: string }
+const { topHref = '#top', topLabel = 'Back to top ↑' } = Astro.props;
+---
+<footer class="wrap foot">
+  <div class="left">
+    <img src={logo.src} width="22" height="22" alt="" />
+    <span>© {new Date().getFullYear()} {site.name}</span>
+  </div>
+  <a class="m navlink" href={topHref}>{topLabel}</a>
+</footer>
+
+<style>
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 28px 40px;
+    font-size: 12px;
+    color: var(--slate);
+  }
+  .left { display: flex; align-items: center; gap: 8px; }
+  .left img { width: 20px; height: 20px; opacity: 0.7; }
+  @media (min-width: 56rem) {
+    .foot { padding-block: 32px 48px; font-size: 13px; }
+    .left img { width: 22px; height: 22px; }
+  }
+</style>

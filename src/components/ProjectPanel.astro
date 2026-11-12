@@ -1,0 +1,103 @@
+---
+/**
+ * One featured project: text column + media column, alternating sides.
+ * Media is the gallery, or the architecture diagram for the assistant
+ * (the only project with no screenshots).
+ */
+import type { CollectionEntry } from 'astro:content';
+import Gallery from './Gallery.astro';
+import BedrockDiagram from './BedrockDiagram.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  /** Position in the featured list; odd = media on the left. */
+  index: number;
+}
+const { project, index } = Astro.props;
+const d = project.data;
+const accent = d.accent ?? 'var(--volt)';
+const panel = d.panel ?? '#27292D';
+const flip = index % 2 === 1;
+const caseHref = d.caseStudy ? `/projects/${project.id}/` : null;
+const hasMedia = d.gallery.length > 0 || project.id === 'bedrock-chatbot';
+// Alternate between a gradient and a soft radial glow so adjacent panels differ.
+const background =
+  index % 2 === 0
+    ? `linear-gradient(135deg, ${panel}cc 0%, var(--surface) 70%)`
+    : `radial-gradient(560px 380px at ${flip ? '0% 100%' : '100% 0%'}, ${accent}22, transparent 70%), var(--surface)`;
+---
+<article class:list={['panel', { flip }]} style={`background:${background}`}>
+  <div class="text">
+    <div class="meta m">
+      {d.year && <span>{d.year}</span>}
+      {d.status && <span style={`color:${accent}`}>{d.status}</span>}
+    </div>
+    <h3 class="f">{d.title}</h3>
+    <p class="summary">{d.summary}</p>
+    {d.bullets.length > 0 && (
+      <ul class="bullets">
+        {d.bullets.map((b) => (
+          <li><span style={`color:${accent}`}>—</span>{b}</li>
+        ))}
+      </ul>
+    )}
+    {d.tech.length > 0 && (
+      <div class="tags">{d.tech.map((t) => <span class="tag">{t}</span>)}</div>
+    )}
+    {(caseHref || d.links.length > 0) && (
+      <div class="links">
+        {caseHref && <a class="u" href={caseHref}>More on this project →</a>}
+        {d.links.map((l) => (
+          <a class="u ext" href={l.href} rel="noopener">{l.label} ↗</a>
+        ))}
+      </div>
+    )}
+    {d.note && <span class="note">{d.note}</span>}
+  </div>
+  {hasMedia && (
+    <div class="media">
+      {d.gallery.length > 0 ? (
+        <Gallery images={d.gallery} panel={panel} />
+      ) : (
+        <BedrockDiagram />
+      )}
+    </div>
+  )}
+</article>
+
+<style>
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 24px 20px;
+    border-radius: 22px;
+    border: 1px solid var(--line);
+  }
+  .text { display: flex; flex-direction: column; gap: 18px; justify-content: center; min-width: 0; }
+  .media { min-width: 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--slate); }
+  h3 { font-size: 32px; line-height: 1.02; letter-spacing: -0.025em; }
+  .summary { margin: 0; color: var(--text-2); }
+  .bullets { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: var(--text-2); }
+  .bullets li { display: flex; gap: 10px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .links { display: flex; flex-wrap: wrap; gap: 20px; font-size: 15px; }
+  .ext { color: var(--slate); }
+  .note { font-size: 13px; color: var(--slate); }
+
+  @media (min-width: 56rem) {
+    .panel {
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 40px;
+      padding: 40px;
+      border-radius: 28px;
+    }
+    .panel.flip { grid-template-columns: minmax(0, 1fr) 420px; }
+    .panel.flip .text { order: 2; }
+    .panel.flip .media { order: 1; }
+    h3 { font-size: 44px; }
+    .tags { gap: 8px; }
+  }
+</style>
