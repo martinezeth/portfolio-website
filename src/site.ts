@@ -9,7 +9,7 @@ export const site = {
   range: ['Machine learning', 'Full stack', 'Web', 'Apps'],
   email: 'ethanjmartinez@outlook.com',
   github: 'https://github.com/martinezeth',
-  linkedin: 'https://www.linkedin.com/in/martinezeth/',
+  linkedin: 'https://www.linkedin.com/in/martinezethan/',
   // Substack: uncomment and fill in once the first post is live. While it is null
   // every Substack link on the site is hidden.
   substack: null as string | null,

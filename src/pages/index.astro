@@ -17,7 +17,7 @@ const more = all.filter((p) => !p.data.featured).sort(byOrder);
 const skills = [
   { k: 'ML & Data', v: ['Python · OpenCV', 'CNNs · scikit-learn', 'NumPy · Matplotlib'] },
   { k: 'Backend & AI', v: ['Amazon Bedrock', 'DynamoDB · Cognito', 'Supabase · Postgres'] },
-  { k: 'Web & Apps', v: ['TypeScript · React', 'Kotlin Multiplatform', 'SwiftUI · Unity'] },
+  { k: 'Web & Apps', v: ['TypeScript · React', 'Kotlin Multiplatform', 'SwiftUI · Unreal Engine'] },
 ];
 ---
 <Base title={`${site.name} · ${site.title}`}>
@@ -70,7 +70,6 @@ const skills = [
       <h2 class="f h2">About</h2>
       <div class="about-body">
         <p class="lede">I like owning a problem across its layers: the data, the model or service behind it, and the interface people actually use. Most of my work has been exactly that, from scoping with the people who need it to shipping it.</p>
-        <p>Lately that means building with LLMs: a multi-model assistant in production at RallySite, and projects of my own that put language models inside real software.</p>
         <div class="skills">
           {skills.map((s) => (
             <div>
