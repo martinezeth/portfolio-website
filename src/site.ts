@@ -10,8 +10,10 @@ export const site = {
   email: 'ethanjmartinez@outlook.com',
   github: 'https://github.com/martinezeth',
   linkedin: 'https://www.linkedin.com/in/martinezeth/',
-  // Set to the Substack URL once the first post is live. null hides every Substack link.
+  // Substack: uncomment and fill in once the first post is live. While it is null
+  // every Substack link on the site is hidden.
   substack: null as string | null,
+  // substack: 'https://ethanmartinez.substack.com',
   // GoatCounter site code, e.g. "ethanmartinez". null = no analytics script.
   // Read from the build environment so local builds never count.
   goatcounter: (import.meta.env.PUBLIC_GOATCOUNTER as string | undefined) || null,

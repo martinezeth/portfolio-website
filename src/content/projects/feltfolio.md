@@ -19,6 +19,11 @@ gallery:
   - src: "/images/feltfolio-confirm-dark.jpg"
     alt: "FeltFolio email confirmation, dark mode"
     kind: "phone"
+  - src: "/images/feltfolio-icon.png"
+    alt: "FeltFolio icon"
+    kind: "brand"
+    lockup: "/images/feltfolio-lockup.png"
+    caption: "Commissioned icon and wordmark"
 links:
   - label: "feltfolio.app"
     href: "https://feltfolio.app"

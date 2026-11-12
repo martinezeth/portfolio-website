@@ -1,101 +1,141 @@
 ---
 /**
- * Carousel: one image per slide, always fully visible on the project's
- * color field. Native scroll-snap does the sliding (swipe works on touch,
- * no JS needed to view); the script drives the counter and arrow buttons.
+ * Filmstrip gallery.
+ *
+ * Cards sit in a row: phone screenshots in phone frames, wide images on the
+ * project's color field (always shown whole), and an optional brand tile.
+ * The strip shows as many whole cards as fit. Each arrow click moves exactly
+ * one card, and the counter reports which cards are visible: "1–2 / 3".
+ * Native scroll-snap does the moving, so swiping works without the script.
+ * Clicking an image opens it full size.
  */
-interface Image { src: string; alt: string; kind: 'phone' | 'wide' | 'contain' }
+interface Image {
+  src: string;
+  alt: string;
+  kind: 'phone' | 'wide' | 'contain' | 'brand';
+  lockup?: string;
+  caption?: string;
+}
 interface Props {
   images: Image[];
-  /** Deep color behind the slides. */
+  /** Deep color behind wide tiles and the brand tile. */
   panel?: string;
   /** Larger sizes for the project page. */
   size?: 'panel' | 'page';
 }
 const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
-const tall = images.some((i) => i.kind === 'phone');
-// Consecutive phone screenshots share a slide in pairs; wide images stand alone.
-const slides: Image[][] = [];
-for (const img of images) {
-  const last = slides[slides.length - 1];
-  if (img.kind === 'phone' && last && last.length === 1 && last[0].kind === 'phone') last.push(img);
-  else slides.push([img]);
-}
 ---
-<div class:list={['gallery', `gallery-${size}`, { tall }]} data-gallery>
-  <div class="frame" style={`background:${panel}`}>
-    <div class="track" data-track tabindex="0" aria-label="Project images">
-      {slides.map((group, i) => (
-        <div class="slide" aria-label={`${i + 1} of ${slides.length}`}>
-          {group.map((img) =>
-            img.kind === 'phone' ? (
-              <div class="phone"><img src={img.src} alt={img.alt} loading="lazy" /></div>
-            ) : (
-              <img class="wide" src={img.src} alt={img.alt} loading="lazy" />
-            ),
-          )}
-        </div>
-      ))}
-      <slot />
+<div class={`gallery gallery-${size}`} data-gallery>
+  <div class="track" data-track tabindex="0" aria-label="Project images">
+    {images.map((img) =>
+      img.kind === 'phone' ? (
+        <figure class="card phone">
+          <img src={img.src} alt={img.alt} loading="lazy" data-expand />
+        </figure>
+      ) : img.kind === 'brand' ? (
+        <figure class="card brand" style={`background:${panel}`}>
+          <img class="icon" src={img.src} alt={img.alt} loading="lazy" />
+          {img.lockup && <img class="lockup" src={img.lockup} alt="" loading="lazy" />}
+          {img.caption && <figcaption class="lbl">{img.caption}</figcaption>}
+        </figure>
+      ) : (
+        <figure class="card tile" style={`background:${panel}`}>
+          <img src={img.src} alt={img.alt} loading="lazy" data-expand />
+        </figure>
+      ),
+    )}
+  </div>
+  <div class="controls" data-controls hidden>
+    <span class="m count"><span data-range>1</span> / {images.length}</span>
+    <div class="arrows">
+      <button type="button" class="arrow" data-prev aria-label="Previous image">←</button>
+      <button type="button" class="arrow" data-next aria-label="Next image">→</button>
     </div>
   </div>
-  {slides.length > 1 && (
-    <div class="controls">
-      <span class="m count"><span data-index aria-live="polite">1</span> / {slides.length}</span>
-      <div class="arrows">
-        <button type="button" class="arrow" data-prev aria-label="Previous image">←</button>
-        <button type="button" class="arrow" data-next aria-label="Next image">→</button>
-      </div>
-    </div>
-  )}
 </div>
 
 <style>
   .gallery { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
-  .frame { overflow: hidden; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); }
   .track {
+    position: relative;
     display: flex;
+    gap: 12px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding: 4px var(--gutter) 12px;
+    margin-inline: calc(-1 * var(--gutter));
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
   .track::-webkit-scrollbar { display: none; }
   .track:focus-visible { outline: 2px solid var(--volt); outline-offset: -2px; }
-  .slide {
-    flex: 0 0 100%;
+  .card {
+    flex: 0 0 auto;
+    margin: 0;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
-    height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    padding: 20px 14px;
-  }
-  .tall .slide { height: 370px; }
-  .wide { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
-  .phone {
-    width: 150px;
-    height: 325px;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: #000;
     overflow: hidden;
     box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
   }
+  .card img[data-expand] { cursor: zoom-in; }
+
+  .phone {
+    width: 148px;
+    height: 320px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #000;
+  }
   .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
+  /* A wide tile is as wide as the visible strip, so one shows at a time. */
+  .tile {
+    width: calc(100% - 2 * var(--gutter));
+    height: 240px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tile img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
+
+  .brand {
+    width: 148px;
+    height: 320px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .brand .icon { width: 80px; height: 80px; border-radius: 18px; background: #fff; object-fit: cover; }
+  .brand .lockup { width: 112px; filter: brightness(0) invert(1); }
+  .brand figcaption { color: rgba(255, 255, 255, 0.6); font-size: 10px; }
+
   @media (min-width: 56rem) {
-    .slide { height: 420px; gap: 24px; padding: 20px; }
-    .tall .slide { height: 560px; }
+    .track { gap: 20px; padding: 8px 4px 16px; margin-inline: 0; scroll-padding-inline: 4px; }
+    .tile { width: calc(100% - 8px); height: 420px; padding: 16px; border-radius: 16px; }
     .phone { width: 236px; height: 510px; border-radius: 30px; }
-    .gallery-page .slide { height: 560px; }
-    .gallery-page.tall .slide { height: 660px; }
+    .brand { width: 320px; height: 510px; border-radius: 16px; gap: 22px; padding: 32px; }
+    .brand .icon { width: 140px; height: 140px; border-radius: 32px; }
+    .brand .lockup { width: 220px; }
+    .brand figcaption { font-size: 11px; }
+    .gallery-page .track { gap: 24px; }
+    .gallery-page .tile { height: 606px; }
     .gallery-page .phone { width: 280px; height: 606px; border-radius: 34px; }
+    .gallery-page .brand { width: 380px; height: 606px; }
+    .gallery-page .brand .icon { width: 160px; height: 160px; border-radius: 36px; }
+    .gallery-page .brand .lockup { width: 260px; }
   }
 
   .controls { display: flex; align-items: center; justify-content: space-between; padding-inline: 4px; }
+  .controls[hidden] { display: none; }
   .count { font-size: 12px; color: var(--slate); }
   .arrows { display: flex; gap: 8px; }
   .arrow {
@@ -114,34 +154,121 @@ for (const img of images) {
   .arrow[disabled] { opacity: 0.35; cursor: default; }
 </style>
 
+<style is:global>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(26, 27, 30, 0.94);
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: none;
+    color: #F1EFEA;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+
 <script>
+  // ---- Filmstrip: counter + arrows over native scroll ----
   for (const gallery of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
     const track = gallery.querySelector<HTMLElement>('[data-track]');
-    const index = gallery.querySelector<HTMLElement>('[data-index]');
+    const controls = gallery.querySelector<HTMLElement>('[data-controls]');
+    const range = gallery.querySelector<HTMLElement>('[data-range]');
     const prev = gallery.querySelector<HTMLButtonElement>('[data-prev]');
     const next = gallery.querySelector<HTMLButtonElement>('[data-next]');
-    if (!track || !index || !prev || !next) continue;
-    const n = track.children.length;
+    if (!track || !controls || !range || !prev || !next) continue;
+    const cards = Array.from(track.children) as HTMLElement[];
+    const n = cards.length;
+    const padLeft = () => parseFloat(getComputedStyle(track).paddingLeft) || 0;
 
-    const current = () => Math.round(track.scrollLeft / track.clientWidth);
+    // Indices of cards that are entirely inside the viewport.
+    const visible = (): number[] => {
+      const t = track.getBoundingClientRect();
+      const out: number[] = [];
+      cards.forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        if (r.left >= t.left - 2 && r.right <= t.right + 2) out.push(i);
+      });
+      return out;
+    };
+    let last: number[] = [0];
     const update = () => {
-      const i = current();
-      index.textContent = String(i + 1);
-      prev.disabled = i <= 0;
-      next.disabled = i >= n - 1;
+      const v = visible();
+      if (v.length) last = v;
+      const a = last[0], b = last[last.length - 1];
+      range.textContent = a === b ? String(a + 1) : `${a + 1}–${b + 1}`;
+      prev.disabled = a <= 0;
+      next.disabled = b >= n - 1;
+      const fits = track.scrollWidth <= track.clientWidth + 2;
+      controls.hidden = fits || n < 2;
     };
-    const go = (i: number) => {
-      const target = Math.max(0, Math.min(n - 1, i));
-      track.scrollTo({ left: target * track.clientWidth, behavior: 'smooth' });
+    const go = (dir: number) => {
+      const v = visible().length ? visible() : last;
+      const target = Math.max(0, Math.min(n - 1, v[0] + dir));
+      const t = track.getBoundingClientRect();
+      const r = cards[target].getBoundingClientRect();
+      track.scrollTo({ left: track.scrollLeft + (r.left - t.left) - padLeft(), behavior: 'smooth' });
     };
-    prev.addEventListener('click', () => go(current() - 1));
-    next.addEventListener('click', () => go(current() + 1));
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
     track.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
     });
     track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', () => { go(current()); update(); });
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
     update();
+  }
+
+  // ---- Lightbox: one overlay for the whole page ----
+  const expandables = document.querySelectorAll<HTMLImageElement>('[data-expand]');
+  if (expandables.length) {
+    const box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.innerHTML = '<img alt=""><button type="button" class="lightbox-close" aria-label="Close">✕</button>';
+    document.body.appendChild(box);
+    const big = box.querySelector('img') as HTMLImageElement;
+    let opener: HTMLElement | null = null;
+    const close = () => {
+      box.classList.remove('open');
+      big.src = '';
+      document.body.style.overflow = '';
+      opener?.focus();
+    };
+    const open = (img: HTMLImageElement) => {
+      opener = img;
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      (box.querySelector('button') as HTMLButtonElement).focus();
+    };
+    expandables.forEach((img) => img.addEventListener('click', () => open(img)));
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('open')) close(); });
   }
 </script>

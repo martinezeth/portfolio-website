@@ -12,9 +12,12 @@ import { z } from 'astro/zod';
 const image = z.object({
   src: z.string(),
   alt: z.string(),
-  // "phone" = portrait screenshot in a phone frame; "wide" = landscape tile;
-  // "contain" = wide tile that letterboxes instead of cropping (charts, graphics).
-  kind: z.enum(['phone', 'wide', 'contain']).default('wide'),
+  // "phone" = portrait screenshot in a phone frame; "wide" = landscape tile
+  // (the whole image is always shown); "brand" = icon + wordmark tile.
+  kind: z.enum(['phone', 'wide', 'contain', 'brand']).default('wide'),
+  // brand only: the wordmark image and the small caption under it.
+  lockup: z.string().optional(),
+  caption: z.string().optional(),
 });
 
 const projects = defineCollection({

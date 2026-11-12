@@ -17,9 +17,6 @@ gallery:
   - src: "/images/max-reaction-fire.jpg"
     alt: "Max Reaction Timer with the trigger lit"
     kind: "phone"
-  - src: "/images/max-reaction-feature.jpg"
-    alt: "Max Reaction Timer store feature graphic"
-    kind: "contain"
 links:
   - label: "App Store"
     href: "https://apps.apple.com/us/app/max-reaction-timer/id6755090843"
