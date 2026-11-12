@@ -1,21 +1,31 @@
 ---
 title: "Max Reaction Timer"
-summary: "A shot timer and reaction trainer on the App Store and Google Play. Shared logic in Kotlin Multiplatform with native UI on each platform. Scoped every feature with a non-technical stakeholder and owned the full release cycle on both stores."
+summary: "A shot timer and reaction trainer on the App Store and Google Play. The interface was designed by the app's non-technical founder; I implemented it to that spec, built the shared logic in Kotlin Multiplatform with native UI on each platform, and owned the full release cycle on both stores."
 order: 40
 featured: true
 year: "2024–25"
 status: "Shipped · 12+ Releases"
 accent: "#FFD400"
 panel: "#141416"
-bullets: []
+bullets:
+  - "UI designed by the founder; engineering, cross-platform architecture and releases by me"
+  - "12+ releases shipped across TestFlight, the App Store and Google Play"
 tech: ["Kotlin Multiplatform", "Swift", "Jetpack Compose"]
-# TODO(ethan): replace with the new screenshots when ready.
 gallery:
-  - src: "/images/max-reaction-ui.jpg"
-    alt: "Max Reaction Timer main screen with drill history"
+  - src: "/images/max-reaction-menu.jpg"
+    alt: "Max Reaction Timer main menu with Quick Start and training modes"
     kind: "phone"
-  - src: "/images/max-reaction-fire.jpg"
-    alt: "Max Reaction Timer with the trigger lit"
+  - src: "/images/max-reaction-drills.jpg"
+    alt: "App Reaction Fire drill list"
+    kind: "phone"
+  - src: "/images/max-reaction-drill-ready.jpg"
+    alt: "A 6 Shot Bill Drill armed and ready to start"
+    kind: "phone"
+  - src: "/images/max-reaction-drill-fire.jpg"
+    alt: "The same drill in its fire state with the timer running"
+    kind: "phone"
+  - src: "/images/max-reaction-history.jpg"
+    alt: "History and scores with per-shot splits"
     kind: "phone"
 links:
   - label: "App Store"

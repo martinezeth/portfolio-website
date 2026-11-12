@@ -5,7 +5,7 @@
  * Cards sit in a row: phone screenshots in phone frames, wide images on the
  * project's color field (always shown whole), and an optional brand tile.
  * The strip shows as many whole cards as fit. Each arrow click moves exactly
- * one card, and the counter reports which cards are visible: "1–2 / 3".
+ * one card and wraps around at either end.
  * Native scroll-snap does the moving, so swiping works without the script.
  * Clicking an image opens it full size.
  */
@@ -46,7 +46,6 @@ const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
     )}
   </div>
   <div class="controls" data-controls hidden>
-    <span class="m count"><span data-range>1</span> / {images.length}</span>
     <div class="arrows">
       <button type="button" class="arrow" data-prev aria-label="Previous image">←</button>
       <button type="button" class="arrow" data-next aria-label="Next image">→</button>
@@ -134,9 +133,8 @@ const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
     .gallery-page .brand .lockup { width: 260px; }
   }
 
-  .controls { display: flex; align-items: center; justify-content: space-between; padding-inline: 4px; }
+  .controls { display: flex; justify-content: flex-end; padding-inline: 4px; }
   .controls[hidden] { display: none; }
-  .count { font-size: 12px; color: var(--slate); }
   .arrows { display: flex; gap: 8px; }
   .arrow {
     width: 36px;
@@ -151,7 +149,6 @@ const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
     transition: border-color 0.2s, opacity 0.2s;
   }
   .arrow:hover { border-color: var(--text); }
-  .arrow[disabled] { opacity: 0.35; cursor: default; }
 </style>
 
 <style is:global>
@@ -194,10 +191,9 @@ const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
   for (const gallery of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
     const track = gallery.querySelector<HTMLElement>('[data-track]');
     const controls = gallery.querySelector<HTMLElement>('[data-controls]');
-    const range = gallery.querySelector<HTMLElement>('[data-range]');
     const prev = gallery.querySelector<HTMLButtonElement>('[data-prev]');
     const next = gallery.querySelector<HTMLButtonElement>('[data-next]');
-    if (!track || !controls || !range || !prev || !next) continue;
+    if (!track || !controls || !prev || !next) continue;
     const cards = Array.from(track.children) as HTMLElement[];
     const n = cards.length;
     const padLeft = () => parseFloat(getComputedStyle(track).paddingLeft) || 0;
@@ -213,22 +209,29 @@ const { images, panel = 'var(--surface)', size = 'panel' } = Astro.props;
       return out;
     };
     let last: number[] = [0];
+    const atEnd = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
     const update = () => {
       const v = visible();
       if (v.length) last = v;
-      const a = last[0], b = last[last.length - 1];
-      range.textContent = a === b ? String(a + 1) : `${a + 1}–${b + 1}`;
-      prev.disabled = a <= 0;
-      next.disabled = b >= n - 1;
-      const fits = track.scrollWidth <= track.clientWidth + 2;
-      controls.hidden = fits || n < 2;
+      controls.hidden = n < 2 || track.scrollWidth <= track.clientWidth + 2;
+    };
+    const scrollToCard = (i: number) => {
+      const t = track.getBoundingClientRect();
+      const r = cards[i].getBoundingClientRect();
+      track.scrollTo({ left: track.scrollLeft + (r.left - t.left) - padLeft(), behavior: 'smooth' });
     };
     const go = (dir: number) => {
       const v = visible().length ? visible() : last;
-      const target = Math.max(0, Math.min(n - 1, v[0] + dir));
-      const t = track.getBoundingClientRect();
-      const r = cards[target].getBoundingClientRect();
-      track.scrollTo({ left: track.scrollLeft + (r.left - t.left) - padLeft(), behavior: 'smooth' });
+      const first = v[0];
+      if (dir > 0) {
+        // Past the last card: wrap to the start.
+        if (atEnd() || first >= n - 1) scrollToCard(0);
+        else scrollToCard(first + 1);
+      } else {
+        // Before the first card: wrap to the end.
+        if (first <= 0 && track.scrollLeft <= 2) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+        else scrollToCard(first - 1);
+      }
     };
     prev.addEventListener('click', () => go(-1));
     next.addEventListener('click', () => go(1));
