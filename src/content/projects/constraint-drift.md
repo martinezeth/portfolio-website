@@ -1,6 +1,6 @@
 ---
 title: "Constraint Drift"
-summary: "An evaluation harness that tests whether AI coding assistants can fix credential leaks without breaking login. Generated code runs in network-disabled Docker containers; four feedback strategies across six authentication cases, checked by 53 automated tests."
+summary: "An evaluation harness that tests whether AI coding assistants can fix credential leaks without breaking login. Generated code runs in network-disabled Docker containers, across four feedback strategies and six authentication cases."
 order: 5
 featured: false
 eyebrow: "LLM evaluation · In progress · Python"
